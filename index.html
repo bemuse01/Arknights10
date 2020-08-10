@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="author" content="Bemuse">
+        <meta name="description" content="Arknights wallpaper for WE">
+        <meta name="keywords" content="html, css, js, three.js, vue.js, tween.js">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="assets/js/vue.min.js"></script>
+        <script src="assets/js/tween.umd.js"></script>
+        <script src="assets/js/param.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.method.js"></script>
+        <script src="assets/js/object.js"></script>
+        <script src="assets/js/move.js"></script>
+        <link href="assets/css/main.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div id="wrap">
+            <transition name="text-transition">
+                <div id="opening" v-show="show.opening">
+                    <span
+                        class="opening-text"
+                        v-for="t in arr.opening.text"
+                        :key="t.id"
+                        :style="t.style"
+                    >{{t.display}}</span>
+                </div>
+            </transition>
+            <div id="main">
+
+            </div>
+        </div>
+        <script src="assets/js/main.js"></script>
+    </body>
+</html>
