@@ -79,5 +79,22 @@ const util = {
             scale: chance === 'cube' ? 1 : 0.5
         }
         return obj
+    },
+    expandDecTime(time, max, len){
+        let zero = ''
+        for(let i = 0; i < len; i++) zero += '0'
+        return time < max ? zero + time : time
+    },
+    expandBinTime(time, len){
+        if(len !== 6){
+            for(let i = 0; i < 6 - len; i++) time = '0' + time
+        }
+        return time
+    },
+    watchTime(arr, time){
+        arr.forEach(e => {
+            if(e.text === time) e.show = true
+            else if(e.text !== time && e.show == true) e.show = false
+        })
     }
 }

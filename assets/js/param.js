@@ -12,6 +12,14 @@ const param = {
             offset: 1500,
             step: 200,
         }
+    },
+    main: {
+        clock: {
+            height: 420,
+            sec: 0.46,
+            min: 0.40,
+            hour: 0.32
+        }
     }
 }
 
@@ -21,6 +29,7 @@ const three = {
         row: 4,
         gap: 4,
         rotation: 0.005,
+        scale: 1,
         geo: {
             sphere: new THREE.SphereGeometry(12, 8, 8),
             circle: new THREE.CircleGeometry(12, 63),
@@ -55,7 +64,7 @@ const tweens = {
             time: 600,
             delay: 15,
             min: 1,
-            max: 4
+            max: 3
         }
     }
 }

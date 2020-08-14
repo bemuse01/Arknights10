@@ -6,10 +6,26 @@ new Vue({
                 opening: {
                     text: method.createOpeningText(param.opening),
                     index: method.createRandomIndex(param.opening)
-                } 
+                },
+                main: {
+                    clock: method.createClockPointsArray()
+                }
             },
             show: {
-                opening: true
+                opening: true,
+                main: {
+                    topClock: false,
+                    leftClock: false
+                }
+            },
+            time: {
+                sec: 0,
+                min: 0,
+                hour: 0,
+                sday: null,
+                nday: 0,
+                month: 0,
+                year: 0
             },
             play: {
                 opening: true
@@ -17,7 +33,9 @@ new Vue({
             delay: {
                 opening: 1500,
                 main: {
-                    canvas: 2500
+                    topClock: 2500,
+                    leftClock: 3000,
+                    canvas: 3500
                 }
             },
             three: {
@@ -40,8 +58,46 @@ new Vue({
         }
     },
     computed: {
+        topClockDecimal(){
+            let sec = util.expandDecTime(this.time.sec, 10, 1),
+                min = util.expandDecTime(this.time.min, 10, 1),
+                hour = util.expandDecTime(this.time.hour, 10, 1)
+            return `${hour}:${min}:${sec}` 
+        },
+        topClockBinary(){
+            let sec = util.expandBinTime(this.time.sec.toString(2), this.time.sec.toString(2).length),
+                min = util.expandBinTime(this.time.min.toString(2), this.time.min.toString(2).length),
+                hour = util.expandBinTime(this.time.hour.toString(2), this.time.hour.toString(2).length)
+            return `${hour}:${min}:${sec}`
+        },
+        topCalendar(){
+            let arr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                mon = util.expandDecTime(this.time.month + 1, 10, 1),
+                nday = util.expandDecTime(this.time.nday, 10, 1)
+            return `${arr[this.time.sday]}, ${this.time.year}.${mon}.${nday}`
+        },
+        moveSecondHand(){
+            let deg = 360 / 60, rotate = deg * this.time.sec
+            return {transform: `rotate(${rotate}deg)`}
+        },
+        moveMinuteHand(){
+            let deg = 360 / 60, rotate = deg * this.time.min
+            return {transform: `rotate(${rotate}deg)`}
+        },
+        moveHourHand(){
+            let deg = 360 / 24, rotate = deg * this.time.hour
+            return {transform: `rotate(${rotate}deg)`}
+        },
+        watchSecond(){
+            return this.time.sec
+        }
     },
     watch: {
+        watchSecond(){
+            this.arr.main.clock.forEach((e, i) => {
+                util.watchTime(e.arr, i === 0 ? this.time.sec : i === 1 ? this.time.min : this.time.hour)
+            })
+        }
     },
     mounted(){
         this.init()
@@ -50,6 +106,7 @@ new Vue({
         init(){
             this.initThree()
             this.pickText()
+            this.currentTime()
             this.animate()
 
             window.addEventListener('resize', this.onWindowResize, false)
@@ -88,6 +145,8 @@ new Vue({
         executeAfterOpening(){
             this.stopChangingText()
             this.closeText()
+            this.openTopClock()
+            this.openLeftClock()
             this.createTweens()
         },
 
@@ -127,11 +186,35 @@ new Vue({
 
 
 
+        /* main top clock */
+        openTopClock(){
+            setTimeout(() => {this.show.main.topClock = true}, this.delay.main.topClock)
+        },
+        /* main left clock */
+        openLeftClock(){
+            setTimeout(() => {this.show.main.leftClock = true}, this.delay.main.leftClock)
+        },
+
+        
+
+
         onWindowResize(){
             param.util.width = window.innerWidth
             param.util.height = window.innerHeight
 
             this.resizeThree()
+        },
+        currentTime(){
+            let date = new Date()
+            this.time.sec = date.getSeconds()
+            this.time.min = date.getMinutes()
+            this.time.hour = date.getHours()
+            this.time.sday = date.getDay()
+            this.time.nday = date.getDate()
+            this.time.month = date.getMonth()
+            this.time.year = date.getFullYear()
+
+            setTimeout(this.currentTime, 1000)
         },
 
 

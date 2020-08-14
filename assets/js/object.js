@@ -17,20 +17,20 @@ const object = {
         for(let i = 0; i < param.row ** 3; i++){
             let local = new THREE.Group()
             local.param = {
-                box: 0.125,
-                helper: 0.6
+                box: 0.15,
+                helper: 0.75
             }
 
             let geometry = new THREE.BoxGeometry(param.size, param.size, param.size)
             let material = new THREE.MeshBasicMaterial({
-                color: i % 2 === 0 ? 0xffffff : 0xffffff,
+                color: 0xbbe2e4,
                 transparent: true,
                 opacity: 0,
                 depthTest: false
             })
             let mesh = new THREE.Mesh(geometry, material)
             
-            let helper = new THREE.BoxHelper(mesh, i % 2 === 0 ? 0xffffff : 0xffffff)
+            let helper = new THREE.BoxHelper(mesh, 0xbbe2e4)
             helper.material.transparent = true
             helper.material.opacity = 0
 
@@ -44,6 +44,7 @@ const object = {
 
             element.group.cube.add(local)
         }
+        element.group.cube.scale.set(param.scale, param.scale, param.scale)
         element.scene.add(element.group.cube)
     }
 }

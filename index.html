@@ -32,6 +32,51 @@
                 <div id="main-canvas-wrap">
                     <canvas id="main-canvas"></canvas>
                 </div>
+                <transition name="main-transition">
+                    <div id="main-top-clock" v-show="show.main.topClock">
+                        <span>{{topClockDecimal}}</span>
+                        <span>{{topClockBinary}}</span>
+                        <span>{{topCalendar}}</span>
+                    </div>
+                </transition>
+                <transition name="main-transition">
+                    <div id="main-left-clock" v-show="show.main.leftClock">
+                        <div id="analog-clock">
+                            <div id="analog-clock-back"></div>
+                            <div id="hands-container">
+                                <div class="clock-hands hands-second">
+                                    <div :style="moveSecondHand"></div>
+                                </div>
+                                <div class="clock-hands hands-minute">
+                                    <div :style="moveMinuteHand"></div>
+                                </div>
+                                <div class="clock-hands hands-hour">
+                                    <div :style="moveHourHand"></div>
+                                </div>
+                            </div>
+                            <div id="points-container">
+                                <transition-group name="analog-clock-transition" tag="div"
+                                    v-for="c in arr.main.clock"
+                                    :key="c.id"
+                                    :class="c.class"
+                                >
+                                    <div
+                                        v-for="s in c.arr"
+                                        :key="s.id"
+                                        v-show="s.show"
+                                    >
+                                        <div
+                                            :style="{
+                                                transform: `translate(${s.tran.translate.x}px, ${s.tran.translate.y}px)`
+                                            }"
+                                        ><span>{{s.text}}</span>
+                                        </div>
+                                    </div>
+                                </transition-group>
+                            </div>
+                        </div>
+                    </div>
+                </transition>
             </div>
         </div>
         <script src="assets/js/main.js"></script>
