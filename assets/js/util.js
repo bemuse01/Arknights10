@@ -67,34 +67,24 @@ const util = {
         }
         return arr
     },
-    createTslArray(e, chance, random, i, pos, opacity){
+    createTslArray(chance, random, i, pos, opacity){
         let obj = {}
         let strength = 6, iteration = 6
         obj = {
             x: pos[chance][random[i]].x, 
             y: pos[chance][random[i]].y, 
             z: pos[chance][random[i]].z,
-            box: util.createOpaArray(e.param.box, opacity, strength, iteration),
-            helper: util.createOpaArray(e.param.helper, opacity, strength, iteration),
+            box: util.createOpaArray(tweens.cube.opa.box, opacity, strength, iteration),
+            helper: util.createOpaArray(tweens.cube.opa.helper, opacity, strength, iteration),
             scale: chance === 'cube' ? 1 : 0.5
         }
         return obj
     },
-    expandDecTime(time, max, len){
-        let zero = ''
-        for(let i = 0; i < len; i++) zero += '0'
-        return time < max ? zero + time : time
-    },
-    expandBinTime(time, len){
-        if(len !== 6){
-            for(let i = 0; i < 6 - len; i++) time = '0' + time
-        }
-        return time
-    },
-    watchTime(arr, time){
-        arr.forEach(e => {
-            if(e.text === time) e.show = true
-            else if(e.text !== time && e.show == true) e.show = false
-        })
+    createRandomCommand(){
+        let sen = word.start[Math.floor(Math.random() * word.start.length)], 
+            temp = sen, 
+            len = Math.floor(Math.random() * param.main.leftWriter.text.len + (param.main.leftWriter.text.len - Math.floor(param.main.leftWriter.text.len / 2)))
+        for(let i = 0; i < len; i++) temp += word[sen][Math.floor(Math.random() * word[sen].length)]
+        return temp.split('').reverse()
     }
 }

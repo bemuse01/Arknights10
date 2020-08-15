@@ -16,10 +16,6 @@ const object = {
     createCube(element, param){
         for(let i = 0; i < param.row ** 3; i++){
             let local = new THREE.Group()
-            local.param = {
-                box: 0.15,
-                helper: 0.75
-            }
 
             let geometry = new THREE.BoxGeometry(param.size, param.size, param.size)
             let material = new THREE.MeshBasicMaterial({

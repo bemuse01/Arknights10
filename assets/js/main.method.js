@@ -26,12 +26,14 @@ const method = {
         let len = Math.floor(height / param.main.leftWriter.text.height)
         let arr = []
         for(let i = 0; i < len; i++){
-            let sen = word.start[Math.floor(Math.random() * word.start.length)], temp = sen, len = Math.floor(Math.random() * 5 + 5)
-            for(let i = 0; i < len; i++) temp += word[sen][Math.floor(Math.random() * word[sen].length)]
+            let temp = util.createRandomCommand(), opacity = Math.random() * param.main.leftWriter.opacity + param.main.leftWriter.opacity
             arr[i] = {
                 id: i,
                 text: '$ ',
-                sen: temp.split('').reverse()
+                sen: temp,
+                style: {
+                    opacity: opacity
+                }
             }
         }
         return arr

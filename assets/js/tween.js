@@ -28,7 +28,7 @@ const tween = {
             let opacity = Math.floor(Math.random() * param.opa.max + param.opa.min)
 
             param.tsl.start[i] = {x: e.position.x, y: e.position.y, z: e.position.z, box: e.children[0].material.opacity, helper: e.children[1].material.opacity, scale: e.scale.x}
-            param.tsl.end[i] = util.createTslArray(e, chance, random, i, pos, opacity)
+            param.tsl.end[i] = util.createTslArray(chance, random, i, pos, opacity)
 
             let tw = new TWEEN.Tween(param.tsl.start[i])
                 .to(param.tsl.end[i], param.tsl.time)

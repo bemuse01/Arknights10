@@ -52,14 +52,16 @@ new Vue({
                 }
             },
             util: {
+                width: window.innerWidth,
                 height: window.innerHeight
             }
         }
     },
     computed: {
         leftWriterStyle(){
-            let height = this.util.height * param.main.leftWriter.height
-            return {height: `${height}px`}
+            let width = this.util.width * param.main.leftWriter.width
+                height = this.util.height * param.main.leftWriter.height
+            return {width: `${width}px`, height: `${height}px`}
         }
     },
     watch: {
@@ -154,18 +156,19 @@ new Vue({
             let currentLen = arr.length,
                 height = param.util.height * param.main.leftWriter.height,
                 len = Math.floor(height / param.main.leftWriter.text.height)
-
             
             if(currentLen === len) return
             else if(currentLen > len) for(let i = 0; i < currentLen - len; i++) arr.pop()
             else{
                 for(let i = 0; i < len - currentLen; i++){
-                    let sen = word.start[Math.floor(Math.random() * word.start.length)], temp = sen, length = Math.floor(Math.random() * 5 + 5)
-                    for(let i = 0; i < length; i++) temp += word[sen][Math.floor(Math.random() * word[sen].length)]
+                    let opacity = Math.random() * param.main.leftWriter.opacity + param.main.leftWriter.opacity
                     arr.push({
                         id: arr.length,
                         text: '$ ',
-                        sen: temp.split('').reverse()
+                        sen: util.createRandomCommand(),
+                        style: {
+                            opacity: opacity
+                        }
                     })
                 }
             }
@@ -184,9 +187,8 @@ new Vue({
         },
         createSentence(e){
             e.text = '$ '
-            let sen = word.start[Math.floor(Math.random() * word.start.length)], temp = sen, len = Math.floor(Math.random() * 5 + 5)
-            for(let i = 0; i < len; i++) temp += word[sen][Math.floor(Math.random() * word[sen].length)]
-            e.sen = temp.split('').reverse()
+            e.style.opacity = Math.random() * param.main.leftWriter.opacity + param.main.leftWriter.opacity
+            e.sen = util.createRandomCommand()
         },
         
 
@@ -195,7 +197,9 @@ new Vue({
         onWindowResize(){
             param.util.width = window.innerWidth
             param.util.height = window.innerHeight
+            this.util.width = window.innerWidth
             this.util.height = window.innerHeight
+            param.main.leftWriter.text.len = Math.round((param.util.width * param.main.leftWriter.width) * (1 / 100))
 
             this.resizeThree()
             this.resizeWriter(this.arr.main.leftWriter)

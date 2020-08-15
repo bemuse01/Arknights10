@@ -15,10 +15,13 @@ const param = {
     },
     main: {
         leftWriter: {
+            width: 0.3,
             height: 0.95,
+            opacity: 0.5,
             text: {
                 width: 8.4,
-                height: 22
+                height: 22,
+                len: Math.round((window.innerWidth * 0.3) * (1 / 100))
             },
         }
     }
@@ -60,8 +63,8 @@ const tweens = {
             })
         },
         opa: {
-            box: 0.125,
-            helper: 0.6,
+            box: 0.15,
+            helper: 0.75,
             time: 600,
             delay: 15,
             min: 1,
