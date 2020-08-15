@@ -1,6 +1,6 @@
 :root{
     --main-hex-color: #bbe2e4;
-    --main-rgb-color-border: rgba(187, 226, 228, 0.1);
+    --main-left-writer-color: rgba(187, 226, 228, 0.6);
 }
 
 
@@ -120,79 +120,23 @@ canvas#main-canvas{
 
 
 
-/* main top clock */
-div#main-top-clock > span{
+/* main left writer */
+div#main-left-writer-tsl{
     position: absolute;
-    top: 5px;
-    font-family: NotoMonoRegular;
-    font-size: 14px;
-}
-div#main-top-clock > span:nth-child(1){
-    left: 5px;
-}
-div#main-top-clock > span:nth-child(2){
-    left: 50%;
-    transform: translate(-50%, 0px);
-}
-div#main-top-clock > span:nth-child(3){
-    right: 5px;
-}
-
-
-
-
-/* main left clock */
-div#main-left-clock{
-    position: absolute;
+    top: 50%;
     left: 20px;
-    bottom: 60px;
-    width: 420px;
-    height: 420px;
+    transform: translate(0px, -50%);
+    overflow: hidden;
+    width: 600px;
+}
+div.left-writer{
+    margin-bottom: 6px;
+    font-size: 14px;
     font-family: NotoMonoRegular;
-    font-size: 12px;
-    /* background: var(--main-rgb-color-border); */
-    /* border-radius: 50%;
-    border: 1px solid var(--main-rgb-color-border); */
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
 }
-div.clock-points > div{
-    position: absolute;
-    width: auto;
-    height: auto;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+div.left-writer:last-child{
+    margin-bottom: 0;
 }
-div.clock-points > div div{
-    text-align: center;
-}
-div.clock-hands{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -100%);
-}
-div.clock-hands > div{
-    background: var(--main-hex-color);
-    width: 2px;
-    transform-origin: bottom;
-}
-div.hands-second > div{
-    height: 180px;
-}
-div.hands-minute > div{
-    height: 156px;
-}
-div.hands-hour > div{
-    height: 120px;
-}
-/* div#analog-clock-back{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80px;
-    height: 80px;
-    background: var(--main-hex-color);
-    opacity: 0.2;
-    border-radius: 50%;
-} */

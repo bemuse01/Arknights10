@@ -14,11 +14,12 @@ const param = {
         }
     },
     main: {
-        clock: {
-            height: 420,
-            sec: 0.46,
-            min: 0.40,
-            hour: 0.32
+        leftWriter: {
+            height: 0.95,
+            text: {
+                width: 8.4,
+                height: 22
+            },
         }
     }
 }
@@ -68,3 +69,24 @@ const tweens = {
         }
     }
 }
+
+const names = {
+    alpha: 'abcdefghijklmnopqrstuvwxy'.split(''),
+    logo: ['Rhodes', 'Babel', 'Penguin', 'Lungmen', 'Ursus', 'Black', 'Kjerag', 'Reunion', 'Victoria', 'Rhine', 'Raythean', 'Billiton', 'Laterano', 'Kazimierz'],
+    paths: ['program files', 'home', 'users', 'documents', 'untitled', 'local', 'host', 'lib', 'temp', 'tasks', 'system', 'windows'],
+    character: ['doctor', 'closure', 'kaltsit', 'chen', 'amiya', 'texas', 'skadi', 'blaze', 'hoshiguma', 'saria', 'exusiai', 'blue', 'w', 'mostima', 'eyjafjalla', 'ceobe', 'shining', 'ptilopsis', 'nightingale', 'magallan', 'sora', 'emperor'],
+    ex: ['dll', 'txt', 'docx', 'log', 'bin', 'ini', 'xml', 'json']
+}
+
+const word = {
+    start: ['ls', 'cp', 'mkdir', 'rmdir', 'find', 'who', 'pwd', 'history'],
+    ls: [...names.alpha.map(x => ` -${x}`), ...names.logo.map(x => ` /${x}`), ...names.paths.map(x => ` /${x}`)],
+    cp: [...names.alpha.map(x => ` -${x}`), ...names.character.map(x => ` ${x}.${names.ex[Math.floor(Math.random() * names.ex.length)]}`), ...names.paths.map(x => ` /${x}`)],
+    mkdir: [...names.alpha.map(x => ` -${x}`), ...names.paths.map(x => ` /${x}`)],
+    rmdir: [...names.alpha.map(x => ` -${x}`), ...names.paths.map(x => ` /${x}`)],
+    find: [...names.alpha.map(x => ` -${x}`), ...names.character.map(x => ` ${x}.${names.ex[Math.floor(Math.random() * names.ex.length)]}`)],
+    who: [...names.alpha.map(x => ` -${x}`), ...names.character.map(x => ` ${x}`)],
+    pwd: [...names.alpha.map(x => ` -${x}`)],
+    history: [...names.alpha.map(x => ` -${x}`)]
+}
+

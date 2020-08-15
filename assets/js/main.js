@@ -5,17 +5,15 @@ new Vue({
             arr: {
                 opening: {
                     text: method.createOpeningText(param.opening),
-                    index: method.createRandomIndex(param.opening)
+                    index: method.createRandomIndex(param.opening),
                 },
                 main: {
-                    clock: method.createClockPointsArray()
+                    leftWriter: method.createWriter()
                 }
             },
             show: {
                 opening: true,
                 main: {
-                    topClock: false,
-                    leftClock: false
                 }
             },
             time: {
@@ -33,9 +31,7 @@ new Vue({
             delay: {
                 opening: 1500,
                 main: {
-                    topClock: 2500,
-                    leftClock: 3000,
-                    canvas: 3500
+                    canvas: 2000
                 }
             },
             three: {
@@ -54,50 +50,19 @@ new Vue({
                     box: null,
                     cylinder: null
                 }
+            },
+            util: {
+                height: window.innerHeight
             }
         }
     },
     computed: {
-        topClockDecimal(){
-            let sec = util.expandDecTime(this.time.sec, 10, 1),
-                min = util.expandDecTime(this.time.min, 10, 1),
-                hour = util.expandDecTime(this.time.hour, 10, 1)
-            return `${hour}:${min}:${sec}` 
-        },
-        topClockBinary(){
-            let sec = util.expandBinTime(this.time.sec.toString(2), this.time.sec.toString(2).length),
-                min = util.expandBinTime(this.time.min.toString(2), this.time.min.toString(2).length),
-                hour = util.expandBinTime(this.time.hour.toString(2), this.time.hour.toString(2).length)
-            return `${hour}:${min}:${sec}`
-        },
-        topCalendar(){
-            let arr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-                mon = util.expandDecTime(this.time.month + 1, 10, 1),
-                nday = util.expandDecTime(this.time.nday, 10, 1)
-            return `${arr[this.time.sday]}, ${this.time.year}.${mon}.${nday}`
-        },
-        moveSecondHand(){
-            let deg = 360 / 60, rotate = deg * this.time.sec
-            return {transform: `rotate(${rotate}deg)`}
-        },
-        moveMinuteHand(){
-            let deg = 360 / 60, rotate = deg * this.time.min
-            return {transform: `rotate(${rotate}deg)`}
-        },
-        moveHourHand(){
-            let deg = 360 / 24, rotate = deg * this.time.hour
-            return {transform: `rotate(${rotate}deg)`}
-        },
-        watchSecond(){
-            return this.time.sec
+        leftWriterStyle(){
+            let height = this.util.height * param.main.leftWriter.height
+            return {height: `${height}px`}
         }
     },
     watch: {
-        watchSecond(){
-            this.arr.main.clock.forEach((e, i) => {
-                util.watchTime(e.arr, i === 0 ? this.time.sec : i === 1 ? this.time.min : this.time.hour)
-            })
-        }
     },
     mounted(){
         this.init()
@@ -145,8 +110,6 @@ new Vue({
         executeAfterOpening(){
             this.stopChangingText()
             this.closeText()
-            this.openTopClock()
-            this.openLeftClock()
             this.createTweens()
         },
 
@@ -186,23 +149,56 @@ new Vue({
 
 
 
-        /* main top clock */
-        openTopClock(){
-            setTimeout(() => {this.show.main.topClock = true}, this.delay.main.topClock)
-        },
-        /* main left clock */
-        openLeftClock(){
-            setTimeout(() => {this.show.main.leftClock = true}, this.delay.main.leftClock)
-        },
+        /* main left writer */
+        resizeWriter(arr){
+            let currentLen = arr.length,
+                height = param.util.height * param.main.leftWriter.height,
+                len = Math.floor(height / param.main.leftWriter.text.height)
 
+            
+            if(currentLen === len) return
+            else if(currentLen > len) for(let i = 0; i < currentLen - len; i++) arr.pop()
+            else{
+                for(let i = 0; i < len - currentLen; i++){
+                    let sen = word.start[Math.floor(Math.random() * word.start.length)], temp = sen, length = Math.floor(Math.random() * 5 + 5)
+                    for(let i = 0; i < length; i++) temp += word[sen][Math.floor(Math.random() * word[sen].length)]
+                    arr.push({
+                        id: arr.length,
+                        text: '$ ',
+                        sen: temp.split('').reverse()
+                    })
+                }
+            }
+        },
+        typeWriter(arr){
+            arr.forEach(e => {
+                let chance = Math.random()
+                if(chance > 0.9875 && e.sen.length === 0) this.createSentence(e)
+                this.typeCharacter(e)
+            })
+        },
+        typeCharacter(e){
+            let temp = e.sen.pop()
+            if(temp === undefined) return
+            e.text += temp
+        },
+        createSentence(e){
+            e.text = '$ '
+            let sen = word.start[Math.floor(Math.random() * word.start.length)], temp = sen, len = Math.floor(Math.random() * 5 + 5)
+            for(let i = 0; i < len; i++) temp += word[sen][Math.floor(Math.random() * word[sen].length)]
+            e.sen = temp.split('').reverse()
+        },
         
+
 
 
         onWindowResize(){
             param.util.width = window.innerWidth
             param.util.height = window.innerHeight
+            this.util.height = window.innerHeight
 
             this.resizeThree()
+            this.resizeWriter(this.arr.main.leftWriter)
         },
         currentTime(){
             let date = new Date()
@@ -224,6 +220,7 @@ new Vue({
             if(this.play.opening) this.changeText()
             this.renderThree()
             TWEEN.update()
+            this.typeWriter(this.arr.main.leftWriter)
         },
         animate(){
             this.render()

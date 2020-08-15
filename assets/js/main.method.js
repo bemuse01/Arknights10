@@ -21,40 +21,17 @@ const method = {
         for(let i = 0; i < param.arr.length; i++) arr[i] = i
         return util.shuffle(arr)
     },
-    createClockPointsArray(){
-        let temp = []
-        let arr = ['clock-points points-second', 'clock-points points-minute', 'clock-points points-hour']
-
-        arr.forEach((e, i) => {
-            temp.push({
-                id: i,
-                class: e,
-                arr: i === 0 ? this.createClockPoints(60, 'sec') : i === 1 ? this.createClockPoints(60, 'min') : this.createClockPoints(24, 'hour')
-            })
-        })
-        return temp
-    },
-    createClockPoints(length, time){
-        let arr = [], clock
-
-        if(time === "sec") clock = param.main.clock.sec
-        else if(time === "min") clock = param.main.clock.min
-        else clock = param.main.clock.hour
-
-        let deg = 360 / length, offset = 90, dist = param.main.clock.height * clock
-
-        for(let i = 0; i < length; i++) {
-            let x = Math.cos((deg * i - offset) * param.util.radian) * dist, y = Math.sin((deg * i - offset) * param.util.radian) * dist
+    createWriter(){
+        let height = param.util.height * param.main.leftWriter.height
+        let len = Math.floor(height / param.main.leftWriter.text.height)
+        let arr = []
+        for(let i = 0; i < len; i++){
+            let sen = word.start[Math.floor(Math.random() * word.start.length)], temp = sen, len = Math.floor(Math.random() * 5 + 5)
+            for(let i = 0; i < len; i++) temp += word[sen][Math.floor(Math.random() * word[sen].length)]
             arr[i] = {
                 id: i,
-                text: i,
-                show: true,
-                offset: {
-                    translate: {x: x, y: y}
-                },
-                tran: {
-                    translate: {x: x, y: y}
-                }
+                text: '$ ',
+                sen: temp.split('').reverse()
             }
         }
         return arr
