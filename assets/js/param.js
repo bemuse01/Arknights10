@@ -15,12 +15,12 @@ const param = {
     },
     main: {
         leftWriter: {
-            width: 0.3,
-            height: 0.95,
+            width: 0.34,
+            height: 0.8,
             opacity: 0.5,
             text: {
                 width: 8.4,
-                height: 22,
+                height: 24,
                 len: Math.round((window.innerWidth * 0.3) * (1 / 100))
             },
         }

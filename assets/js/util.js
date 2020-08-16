@@ -83,7 +83,7 @@ const util = {
     createRandomCommand(){
         let sen = word.start[Math.floor(Math.random() * word.start.length)], 
             temp = sen, 
-            len = Math.floor(Math.random() * param.main.leftWriter.text.len + (param.main.leftWriter.text.len - Math.floor(param.main.leftWriter.text.len / 2)))
+            len = Math.floor(Math.random() * param.main.leftWriter.text.len + (param.main.leftWriter.text.len - Math.floor(param.main.leftWriter.text.len / 3)))
         for(let i = 0; i < len; i++) temp += word[sen][Math.floor(Math.random() * word[sen].length)]
         return temp.split('').reverse()
     }

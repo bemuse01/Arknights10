@@ -1,6 +1,7 @@
 :root{
     --main-hex-color: #bbe2e4;
     --main-left-writer-color: rgba(187, 226, 228, 0.6);
+    --main-filter-drop-shadow: rgba(187, 226, 228, 0.35);
 }
 
 
@@ -79,10 +80,10 @@
     padding: 0;
 }
 body{
-    /* width: 100vw;
+    width: 100vw;
     height: 100vh;
-    background: url('../image/bg/1.jpg') repeat; */
-    background: black;
+    background: url('../image/bg/1.jpg') repeat;
+    /* background: black; */
     overflow: hidden;
     color: var(--main-hex-color);
 }
@@ -121,15 +122,20 @@ canvas#main-canvas{
 
 
 /* main left writer */
-div#main-left-writer-tsl{
+div#main-left-writer-pers{
+    perspective: 1000px;
     position: absolute;
     top: 50%;
     left: 20px;
     transform: translate(0px, -50%);
+    filter: drop-shadow(10px 10px 1px var(--main-filter-drop-shadow));
+}
+div#main-left-writer-tsl{
     overflow: hidden;
+    transform: rotateY(36deg);
 }
 div.left-writer{
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     font-size: 14px;
     font-family: NotoMonoRegular;
     overflow: hidden;

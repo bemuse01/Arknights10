@@ -62,9 +62,15 @@ new Vue({
             let width = this.util.width * param.main.leftWriter.width
                 height = this.util.height * param.main.leftWriter.height
             return {width: `${width}px`, height: `${height}px`}
+        },
+        watchSecond(){
+            return this.time.sec
         }
     },
     watch: {
+        watchSecond(){
+            this.changeOrder(this.arr.main.leftWriter)
+        }
     },
     mounted(){
         this.init()
@@ -189,6 +195,14 @@ new Vue({
             e.text = '$ '
             e.style.opacity = Math.random() * param.main.leftWriter.opacity + param.main.leftWriter.opacity
             e.sen = util.createRandomCommand()
+        },
+        changeOrder(arr){
+            let index = Math.floor(Math.random() * arr.length),
+                item = arr[index]
+
+            arr.splice(index, 1)
+
+            arr.unshift(item)
         },
         
 

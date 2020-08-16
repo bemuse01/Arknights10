@@ -33,13 +33,15 @@
                     <canvas id="main-canvas"></canvas>
                 </div>
                 <div id="main-left-writer">
-                    <div id="main-left-writer-tsl" :style="leftWriterStyle">
-                        <div
-                            class="left-writer"
-                            v-for="l in arr.main.leftWriter"
-                            :key="l.id"
-                            :style="l.style"
-                        ><span>{{l.text}}</span>
+                    <div id="main-left-writer-pers">
+                        <div id="main-left-writer-tsl" :style="leftWriterStyle">
+                            <div
+                                class="left-writer"
+                                v-for="l in arr.main.leftWriter"
+                                :key="l.id"
+                                :style="l.style"
+                            ><span>{{l.text}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
