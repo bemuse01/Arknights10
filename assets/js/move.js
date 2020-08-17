@@ -24,5 +24,11 @@ const move = {
         TWEEN.removeAll()
 
         tween.addCubeTranslateTween(group, param, index, pos)
+    },
+    onUpdateLineOpacityTween(e, param){
+        e.material.opacity = param.opacity
+    },
+    onCompleteLineOpacityTween(){
+        TWEEN.removeAll()
     }
 }

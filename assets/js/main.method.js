@@ -29,11 +29,20 @@ const method = {
             let temp = util.createRandomCommand(), opacity = Math.random() * param.main.leftWriter.opacity + param.main.leftWriter.opacity
             arr[i] = {
                 id: i,
-                text: '$ ',
+                text: '',
                 sen: temp,
                 style: {
                     opacity: opacity
                 }
+            }
+        }
+        return arr
+    },
+    createClock(){
+        let arr = [], len = 3
+        for(let i = 0; i < len; i++){
+            arr[i] = {
+                id: i
             }
         }
         return arr

@@ -38,5 +38,22 @@ const tween = {
                 .delay(param.tsl.delay)
                 .start()
         })
+    },
+    createLineTween(element, tween, delay){
+        this.addLineOpacityTween(element.group.line, tween, delay)
+    },
+    addLineOpacityTween(group, tween, delay){
+        group.children.forEach((c, i) => {
+            c.children.forEach((e, j) => {
+                let start = {opacity: 0}, end = {opacity: tween.opacity}
+
+                let tw = new TWEEN.Tween(start)
+                    .to(end, tween.time)
+                    .onUpdate(() => {move.onUpdateLineOpacityTween(e, start)})
+                    .onComplete(() => {if(i === group.children.length - 1 && j === c.children.length - 1) move.onCompleteLineOpacityTween()})
+                    .delay(delay + tween.delay * j)
+                    .start()
+            })
+        })
     }
 }

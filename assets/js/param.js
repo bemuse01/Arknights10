@@ -16,13 +16,15 @@ const param = {
     main: {
         leftWriter: {
             width: 0.34,
-            height: 0.8,
+            height: 0.75,
             opacity: 0.5,
             text: {
                 width: 8.4,
-                height: 24,
+                height: 26,
                 len: Math.round((window.innerWidth * 0.3) * (1 / 100))
             },
+        },
+        right: {
         }
     }
 }
@@ -37,11 +39,15 @@ const three = {
         geo: {
             sphere: new THREE.SphereGeometry(12, 8, 8),
             circle: new THREE.CircleGeometry(12, 63),
-            cone: new THREE.ConeGeometry(8, 15, 15, 4),
+            cone: new THREE.ConeGeometry(9, 16, 15, 4),
             icosahedron: new THREE.IcosahedronGeometry(12, 1),
-            box: new THREE.BoxGeometry(15, 15, 15, 3, 3, 3),
-            cylinder: new THREE.CylinderGeometry(8, 8, 16, 10, 5)
+            box: new THREE.BoxGeometry(16, 16, 16, 3, 3, 3),
+            cylinder: new THREE.CylinderGeometry(8, 8, 18, 10, 5)
         }
+    },
+    line: {
+        size: 2,
+        seg: 36
     }
 }
 
@@ -70,6 +76,11 @@ const tweens = {
             min: 1,
             max: 3
         }
+    },
+    line: {
+        time: 1200,
+        delay: 50,
+        opacity: [0, 0.3, 0.6, 0.3, 0.15]
     }
 }
 

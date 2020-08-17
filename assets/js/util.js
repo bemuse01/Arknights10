@@ -76,15 +76,15 @@ const util = {
             z: pos[chance][random[i]].z,
             box: util.createOpaArray(tweens.cube.opa.box, opacity, strength, iteration),
             helper: util.createOpaArray(tweens.cube.opa.helper, opacity, strength, iteration),
-            scale: chance === 'cube' ? 1 : 0.5
+            scale: chance === 'cube' ? 1 : 0.6
         }
         return obj
     },
     createRandomCommand(){
         let sen = word.start[Math.floor(Math.random() * word.start.length)], 
             temp = sen, 
-            len = Math.floor(Math.random() * param.main.leftWriter.text.len + (param.main.leftWriter.text.len - Math.floor(param.main.leftWriter.text.len / 3)))
+            len = Math.floor(Math.random() * param.main.leftWriter.text.len + (param.main.leftWriter.text.len - Math.floor(param.main.leftWriter.text.len / 2)))
         for(let i = 0; i < len; i++) temp += word[sen][Math.floor(Math.random() * word[sen].length)]
-        return temp.split('').reverse()
+        return `$ ${temp}`.split('').reverse()
     }
 }

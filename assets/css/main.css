@@ -1,7 +1,7 @@
 :root{
-    --main-hex-color: #bbe2e4;
-    --main-left-writer-color: rgba(187, 226, 228, 0.6);
-    --main-filter-drop-shadow: rgba(187, 226, 228, 0.35);
+    --main-hex-color: #00fcfc;
+    --main-left-writer-color: rgba(0, 252, 252, 0.6);
+    --main-filter-drop-shadow: rgba(0, 252, 252, 0.4);
 }
 
 
@@ -14,6 +14,10 @@
 @font-face{
     src: url('../font/NotoMono-Regular.ttf');
     font-family: NotoMonoRegular;
+}
+@font-face{
+    src: url('../font/Inconsolata-Light.ttf');
+    font-family: InconsolataLight;
 }
 
 
@@ -43,34 +47,6 @@
 .text-transition-leave-to{
     opacity: 0;
 }
-/* main transition */
-.main-transition-enter-active{
-    animation: blink-open 0.06s 2 forwards;
-    transition: all 0.3s;
-}
-.main-transition-leave-active{
-    transition: all 0.3s;
-}
-.main-transition-enter{
-    opacity: 0;
-}
-.main-transition-leave-to{
-    opacity: 0;
-}
-/* analog clock transition */
-.analog-clock-transition-enter-active{
-    animation: blink-open 0.08s 0.04s 2 forwards;
-    transition: all 0.25s;
-}
-.analog-clock-transition-leave-active{
-    transition: all 0.25s;
-}
-.analog-clock-transition-enter{
-    opacity: 0;
-}
-.analog-clock-transition-leave-to{
-    opacity: 0;
-}
 
 
 
@@ -80,10 +56,7 @@
     padding: 0;
 }
 body{
-    width: 100vw;
-    height: 100vh;
-    background: url('../image/bg/1.jpg') repeat;
-    /* background: black; */
+    background: black;
     overflow: hidden;
     color: var(--main-hex-color);
 }
@@ -111,6 +84,19 @@ span.opening-text:last-child{
 
 
 
+/* main */
+div#main{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(187, 226, 228, 0)
+}
+
+
+
+
 /* main canvas */
 canvas#main-canvas{
     position: absolute;
@@ -126,16 +112,16 @@ div#main-left-writer-pers{
     perspective: 1000px;
     position: absolute;
     top: 50%;
-    left: 20px;
+    left: calc(100vh * 40 / 1080);
     transform: translate(0px, -50%);
-    filter: drop-shadow(10px 10px 1px var(--main-filter-drop-shadow));
+    filter: drop-shadow(6px 10px 1px var(--main-filter-drop-shadow));
 }
 div#main-left-writer-tsl{
     overflow: hidden;
-    transform: rotateY(36deg);
+    transform: rotateY(38deg);
 }
 div.left-writer{
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-size: 14px;
     font-family: NotoMonoRegular;
     overflow: hidden;

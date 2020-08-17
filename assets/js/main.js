@@ -8,7 +8,8 @@ new Vue({
                     index: method.createRandomIndex(param.opening),
                 },
                 main: {
-                    leftWriter: method.createWriter()
+                    leftWriter: method.createWriter(),
+                    rightClock: method.createClock()
                 }
             },
             show: {
@@ -17,21 +18,29 @@ new Vue({
                 }
             },
             time: {
+                ms: 0,
                 sec: 0,
                 min: 0,
                 hour: 0,
-                sday: null,
+                /* sday: null,
                 nday: 0,
                 month: 0,
-                year: 0
+                year: 0 */
             },
             play: {
-                opening: true
+                opening: true,
+                main: {
+                    leftWriter: false
+                }
             },
             delay: {
                 opening: 1500,
                 main: {
-                    canvas: 2000
+                    leftWriter: 2000,
+                    canvas: {
+                        line: 2000,
+                        cube: 3500
+                    }
                 }
             },
             three: {
@@ -39,7 +48,8 @@ new Vue({
                 scene: null,
                 camera: null,
                 group: {
-                    cube: null
+                    cube: null,
+                    line: null
                 },
                 pos: {
                     cube: util.setCubePositionByParam(three.cube),
@@ -63,9 +73,25 @@ new Vue({
                 height = this.util.height * param.main.leftWriter.height
             return {width: `${width}px`, height: `${height}px`}
         },
+        computedMs(){
+            return this.time.ms < 10 ? '00' + this.time.ms : this.time.ms < 100 ? '0' + this.time.ms : this.time.ms
+        },
+        computedSec(){
+            return this.time.sec < 10 ? '0' + this.time.sec : this.time.sec
+        },
+        computedMin(){
+            return this.time.min < 10 ? '0' + this.time.min : this.time.min
+        },
+        computedHour(){
+            return this.time.hour < 10 ? '0' + this.time.hour : this.time.hour
+        },
+        computedClock(){
+            return `${this.computedHour}:${this.computedMin}:${this.computedSec}.${(this.computedMs + '')[0]}`
+        },
         watchSecond(){
             return this.time.sec
-        }
+        },
+
     },
     watch: {
         watchSecond(){
@@ -79,7 +105,6 @@ new Vue({
         init(){
             this.initThree()
             this.pickText()
-            this.currentTime()
             this.animate()
 
             window.addEventListener('resize', this.onWindowResize, false)
@@ -118,6 +143,7 @@ new Vue({
         executeAfterOpening(){
             this.stopChangingText()
             this.closeText()
+            // this.playWriter()
             this.createTweens()
         },
 
@@ -130,6 +156,7 @@ new Vue({
             object.init(canvas, this.three)
 
             this.createObjects()
+            this.transformGroup()
         },
         renderThree(){
             this.playMoves()
@@ -143,15 +170,22 @@ new Vue({
 
             this.three.renderer.setSize(param.util.width, param.util.height)
         },
+        transformGroup(){
+            let x = 18, y = 15, z = 0
+            this.three.group.line.rotation.set(x * param.util.radian, y * param.util.radian, z * param.util.radian)
+        },
         createObjects(){
-            util.setObjectPositionByParam(this.three, three.cube)
-            object.createCube(this.three, three.cube)
+            object.createHorizonLines(this.three)
+            object.createVerticalLines(this.three)
+            /* util.setObjectPositionByParam(this.three, three.cube)
+            object.createCube(this.three, three.cube) */
         },
         playMoves(){
             move.moveCube(this.three.group.cube, three.cube)
         },
         createTweens(){
-            tween.createCubeTween(this.three, tweens.cube, this.delay.main.canvas)
+            tween.createLineTween(this.three, tweens.line, this.delay.main.canvas.line)
+            // tween.createCubeTween(this.three, tweens.cube, this.delay.main.canvas)
         },
 
 
@@ -170,7 +204,7 @@ new Vue({
                     let opacity = Math.random() * param.main.leftWriter.opacity + param.main.leftWriter.opacity
                     arr.push({
                         id: arr.length,
-                        text: '$ ',
+                        text: '',
                         sen: util.createRandomCommand(),
                         style: {
                             opacity: opacity
@@ -192,7 +226,7 @@ new Vue({
             e.text += temp
         },
         createSentence(e){
-            e.text = '$ '
+            e.text = ''
             e.style.opacity = Math.random() * param.main.leftWriter.opacity + param.main.leftWriter.opacity
             e.sen = util.createRandomCommand()
         },
@@ -203,6 +237,9 @@ new Vue({
             arr.splice(index, 1)
 
             arr.unshift(item)
+        },
+        playWriter(){
+            setTimeout(() => {this.play.main.leftWriter = true}, this.delay.main.leftWriter)
         },
         
 
@@ -220,25 +257,27 @@ new Vue({
         },
         currentTime(){
             let date = new Date()
+            this.time.ms = date.getMilliseconds()
             this.time.sec = date.getSeconds()
             this.time.min = date.getMinutes()
             this.time.hour = date.getHours()
-            this.time.sday = date.getDay()
+           /*  this.time.sday = date.getDay()
             this.time.nday = date.getDate()
             this.time.month = date.getMonth()
             this.time.year = date.getFullYear()
 
-            setTimeout(this.currentTime, 1000)
+            setTimeout(this.currentTime, 1000) */
         },
 
 
 
 
         render(){
+            this.currentTime()
             if(this.play.opening) this.changeText()
             this.renderThree()
             TWEEN.update()
-            this.typeWriter(this.arr.main.leftWriter)
+            // if(this.play.main.leftWriter) this.typeWriter(this.arr.main.leftWriter)
         },
         animate(){
             this.render()
