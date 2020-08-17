@@ -91,43 +91,32 @@ div#main{
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(187, 226, 228, 0)
-}
-
-
-
-
-/* main canvas */
-canvas#main-canvas{
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-
-
-
-/* main left writer */
-div#main-left-writer-pers{
     perspective: 1000px;
+}
+
+
+
+
+/* main line */
+div#main-line-wrap{
+    position: absolute;
+    top: 15vh;
+    left: 15vw;
+    width: 100vw;
+    height: 100vh;
+    transform: rotateX(-12deg) rotateY(12deg);
+}
+div#main-line{
     position: absolute;
     top: 50%;
-    left: calc(100vh * 40 / 1080);
-    transform: translate(0px, -50%);
-    filter: drop-shadow(6px 10px 1px var(--main-filter-drop-shadow));
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 130vw;
+    height: 130vh;
 }
-div#main-left-writer-tsl{
-    overflow: hidden;
-    transform: rotateY(38deg);
-}
-div.left-writer{
-    margin-bottom: 10px;
-    font-size: 14px;
-    font-family: NotoMonoRegular;
-    overflow: hidden;
-    text-overflow: clip;
-    white-space: nowrap;
-}
-div.left-writer:last-child{
-    margin-bottom: 0;
+div.main-line-square{
+    float: left;
+    width: 5vw;
+    height: 5vw;
+    outline: 1px solid rgba(0, 252, 252, 0.1);
 }

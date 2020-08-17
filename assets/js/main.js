@@ -5,11 +5,10 @@ new Vue({
             arr: {
                 opening: {
                     text: method.createOpeningText(param.opening),
-                    index: method.createRandomIndex(param.opening),
+                    index: util.createRandomIndex(param.opening),
                 },
                 main: {
-                    leftWriter: method.createWriter(),
-                    rightClock: method.createClock()
+                    line: method.createLine()
                 }
             },
             show: {
@@ -22,43 +21,15 @@ new Vue({
                 sec: 0,
                 min: 0,
                 hour: 0,
-                /* sday: null,
-                nday: 0,
-                month: 0,
-                year: 0 */
             },
             play: {
                 opening: true,
                 main: {
-                    leftWriter: false
                 }
             },
             delay: {
                 opening: 1500,
                 main: {
-                    leftWriter: 2000,
-                    canvas: {
-                        line: 2000,
-                        cube: 500
-                    }
-                }
-            },
-            three: {
-                renderer: null,
-                scene: null,
-                camera: null,
-                group: {
-                    cube: null,
-                    line: null
-                },
-                pos: {
-                    cube: util.setCubePositionByParam(three.cube),
-                    sphere: null,
-                    circle: null,
-                    cone: null,
-                    icosahedron: null,
-                    box: null,
-                    cylinder: null
                 }
             },
             util: {
@@ -68,11 +39,6 @@ new Vue({
         }
     },
     computed: {
-        leftWriterStyle(){
-            let width = this.util.width * param.main.leftWriter.width
-                height = this.util.height * param.main.leftWriter.height
-            return {width: `${width}px`, height: `${height}px`}
-        },
         computedMs(){
             return this.time.ms < 10 ? '00' + this.time.ms : this.time.ms < 100 ? '0' + this.time.ms : this.time.ms
         },
@@ -88,22 +54,14 @@ new Vue({
         computedClock(){
             return `${this.computedHour}:${this.computedMin}:${this.computedSec}.${(this.computedMs + '')[0]}`
         },
-        watchSecond(){
-            return this.time.sec
-        },
-
     },
     watch: {
-        watchSecond(){
-            this.changeOrder(this.arr.main.leftWriter)
-        }
     },
     mounted(){
         this.init()
     },
     methods: {
         init(){
-            this.initThree()
             this.pickText()
             this.animate()
 
@@ -143,117 +101,39 @@ new Vue({
         executeAfterOpening(){
             this.stopChangingText()
             this.closeText()
-            // this.playWriter()
-            this.createTweens()
         },
 
 
 
 
-        /* main canvas */
-        initThree(){
-            let canvas = document.getElementById('main-canvas')
-            object.init(canvas, this.three)
+        /* main line */
+        resizeLine(){
+            this.arr.main.line.length = 0
 
-            this.createObjects()
-            this.transformGroup()
-        },
-        renderThree(){
-            this.playMoves()
-
-            this.three.camera.lookAt(this.three.scene.position)
-            this.three.renderer.render(this.three.scene, this.three.camera)
-        },
-        resizeThree(){
-            this.three.camera.aspect = param.util.width / param.util.height
-            this.three.camera.updateProjectionMatrix()
-
-            this.three.renderer.setSize(param.util.width, param.util.height)
-        },
-        transformGroup(){
-            let x = 18, y = 14, z = 0
-            this.three.group.line.rotation.set(x * param.util.radian, y * param.util.radian, z * param.util.radian)
-        },
-        createObjects(){
-            object.createHorizonLines(this.three)
-            object.createVerticalLines(this.three)
-            util.setObjectPositionByParam(this.three, three.cube)
-            object.createCube(this.three, three.cube)
-        },
-        playMoves(){
-            move.moveCube(this.three.group.cube, three.cube)
-        },
-        createTweens(){
-            tween.createLineTween(this.three, tweens, this.delay.main.canvas)
-            // tween.createCubeTween(this.three, tweens.cube, this.delay.main.canvas.cube)
-        },
-
-
-
-
-        /* main left writer */
-        resizeWriter(arr){
-            let currentLen = arr.length,
-                height = param.util.height * param.main.leftWriter.height,
-                len = Math.floor(height / param.main.leftWriter.text.height)
-            
-            if(currentLen === len) return
-            else if(currentLen > len) for(let i = 0; i < currentLen - len; i++) arr.pop()
-            else{
-                for(let i = 0; i < len - currentLen; i++){
-                    let opacity = Math.random() * param.main.leftWriter.opacity + param.main.leftWriter.opacity
-                    arr.push({
-                        id: arr.length,
-                        text: '',
-                        sen: util.createRandomCommand(),
-                        style: {
-                            opacity: opacity
-                        }
-                    })
+            let width =  this.util.width * param.main.line.size, height = this.util.height * param.main.line.size,
+                size = this.util.width * param.main.line.square,
+                wLen = Math.ceil(width / size), hLen = Math.ceil(height / size),
+                arr = [], len = wLen * hLen
+       
+            for(let i = 0; i < len; i++){
+                arr[i] ={
+                    id: this.arr.main.line.length,
+                    style: {
+                        background: 'rgba(0, 252, 252, 0)'
+                    }
                 }
             }
+            this.arr.main.line = arr
         },
-        typeWriter(arr){
-            arr.forEach(e => {
-                let chance = Math.random()
-                if(chance > 0.9875 && e.sen.length === 0) this.createSentence(e)
-                this.typeCharacter(e)
-            })
-        },
-        typeCharacter(e){
-            let temp = e.sen.pop()
-            if(temp === undefined) return
-            e.text += temp
-        },
-        createSentence(e){
-            e.text = ''
-            e.style.opacity = Math.random() * param.main.leftWriter.opacity + param.main.leftWriter.opacity
-            e.sen = util.createRandomCommand()
-        },
-        changeOrder(arr){
-            let index = Math.floor(Math.random() * arr.length),
-                item = arr[index]
 
-            arr.splice(index, 1)
-
-            arr.unshift(item)
-        },
-        playWriter(){
-            setTimeout(() => {this.play.main.leftWriter = true}, this.delay.main.leftWriter)
-        },
-        
 
 
 
         onWindowResize(){
-            param.util.width = window.innerWidth
-            param.util.height = window.innerHeight
             this.util.width = window.innerWidth
             this.util.height = window.innerHeight
-            param.main.leftWriter.text.len = Math.round((param.util.width * param.main.leftWriter.width) * (1 / 100))
 
-            this.resizeThree()
-            this.resizeWriter(this.arr.main.leftWriter)
+            this.resizeLine()
         },
         currentTime(){
             let date = new Date()
@@ -261,12 +141,6 @@ new Vue({
             this.time.sec = date.getSeconds()
             this.time.min = date.getMinutes()
             this.time.hour = date.getHours()
-           /*  this.time.sday = date.getDay()
-            this.time.nday = date.getDate()
-            this.time.month = date.getMonth()
-            this.time.year = date.getFullYear()
-
-            setTimeout(this.currentTime, 1000) */
         },
 
 
@@ -275,9 +149,6 @@ new Vue({
         render(){
             this.currentTime()
             if(this.play.opening) this.changeText()
-            this.renderThree()
-            TWEEN.update()
-            // if(this.play.main.leftWriter) this.typeWriter(this.arr.main.leftWriter)
         },
         animate(){
             this.render()

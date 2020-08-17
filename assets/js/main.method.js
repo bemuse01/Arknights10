@@ -16,33 +16,18 @@ const method = {
         })
         return arr
     },
-    createRandomIndex(param){
-        let arr = []
-        for(let i = 0; i < param.arr.length; i++) arr[i] = i
-        return util.shuffle(arr)
-    },
-    createWriter(){
-        let height = param.util.height * param.main.leftWriter.height
-        let len = Math.floor(height / param.main.leftWriter.text.height)
-        let arr = []
+    createLine(util){
+        let width =  param.util.width * param.main.line.size, height = param.util.height * param.main.line.size,
+            size = param.util.width * param.main.line.square
+            wLen = Math.ceil(width / size), hLen = Math.ceil(height / size)
+            arr = [], len = wLen * hLen
+            
         for(let i = 0; i < len; i++){
-            let temp = util.createRandomCommand(), opacity = Math.random() * param.main.leftWriter.opacity + param.main.leftWriter.opacity
             arr[i] = {
                 id: i,
-                text: '',
-                sen: temp,
                 style: {
-                    opacity: opacity
+                    background: 'rgba(0, 252, 252, 0)'
                 }
-            }
-        }
-        return arr
-    },
-    createClock(){
-        let arr = [], len = 3
-        for(let i = 0; i < len; i++){
-            arr[i] = {
-                id: i
             }
         }
         return arr
