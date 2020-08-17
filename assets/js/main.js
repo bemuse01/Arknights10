@@ -39,7 +39,7 @@ new Vue({
                     leftWriter: 2000,
                     canvas: {
                         line: 2000,
-                        cube: 3500
+                        cube: 500
                     }
                 }
             },
@@ -171,21 +171,21 @@ new Vue({
             this.three.renderer.setSize(param.util.width, param.util.height)
         },
         transformGroup(){
-            let x = 18, y = 15, z = 0
+            let x = 18, y = 14, z = 0
             this.three.group.line.rotation.set(x * param.util.radian, y * param.util.radian, z * param.util.radian)
         },
         createObjects(){
             object.createHorizonLines(this.three)
             object.createVerticalLines(this.three)
-            /* util.setObjectPositionByParam(this.three, three.cube)
-            object.createCube(this.three, three.cube) */
+            util.setObjectPositionByParam(this.three, three.cube)
+            object.createCube(this.three, three.cube)
         },
         playMoves(){
             move.moveCube(this.three.group.cube, three.cube)
         },
         createTweens(){
-            tween.createLineTween(this.three, tweens.line, this.delay.main.canvas.line)
-            // tween.createCubeTween(this.three, tweens.cube, this.delay.main.canvas)
+            tween.createLineTween(this.three, tweens, this.delay.main.canvas)
+            // tween.createCubeTween(this.three, tweens.cube, this.delay.main.canvas.cube)
         },
 
 

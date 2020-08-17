@@ -35,11 +35,11 @@ const three = {
         row: 4,
         gap: 4,
         rotation: 0.005,
-        scale: 1,
+        scale: 0.6,
         geo: {
             sphere: new THREE.SphereGeometry(12, 8, 8),
             circle: new THREE.CircleGeometry(12, 63),
-            cone: new THREE.ConeGeometry(9, 16, 15, 4),
+            /* cone: new THREE.ConeGeometry(9, 16, 15, 4), */
             icosahedron: new THREE.IcosahedronGeometry(12, 1),
             box: new THREE.BoxGeometry(16, 16, 16, 3, 3, 3),
             cylinder: new THREE.CylinderGeometry(8, 8, 18, 10, 5)
@@ -58,11 +58,11 @@ const tweens = {
             end: [],
             time: 1500,
             delay: 1000,
-            chanceArray: [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6].map(x => {
+            chanceArray: [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, /*  3, 3, */ 4, 4, 5, 5, 6, 6].map(x => {
                 if(x === 0) return 'cube'
                 else if(x === 1) return 'sphere'
                 else if(x === 2) return 'circle'
-                else if(x === 3) return 'cone'
+                /* else if(x === 3) return 'cone' */
                 else if(x === 4) return 'icosahedron'
                 else if(x === 5) return 'box'
                 else return 'cylinder'
@@ -79,7 +79,7 @@ const tweens = {
     },
     line: {
         time: 1200,
-        delay: 50,
+        delay: 40,
         opacity: [0, 0.3, 0.6, 0.3, 0.15]
     }
 }

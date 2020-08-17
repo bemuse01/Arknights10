@@ -40,18 +40,18 @@ const tween = {
         })
     },
     createLineTween(element, tween, delay){
-        this.addLineOpacityTween(element.group.line, tween, delay)
+        this.addLineOpacityTween(element, tween, delay)
     },
-    addLineOpacityTween(group, tween, delay){
-        group.children.forEach((c, i) => {
+    addLineOpacityTween(element, tween, delay){
+        element.group.line.children.forEach((c, i) => {
             c.children.forEach((e, j) => {
-                let start = {opacity: 0}, end = {opacity: tween.opacity}
+                let start = {opacity: 0}, end = {opacity: tween.line.opacity}
 
                 let tw = new TWEEN.Tween(start)
-                    .to(end, tween.time)
+                    .to(end, tween.line.time)
                     .onUpdate(() => {move.onUpdateLineOpacityTween(e, start)})
-                    .onComplete(() => {if(i === group.children.length - 1 && j === c.children.length - 1) move.onCompleteLineOpacityTween()})
-                    .delay(delay + tween.delay * j)
+                    .onComplete(() => {if(i === element.group.line.children.length - 1 && j === c.children.length - 1) move.onCompleteLineOpacityTween(element, tween.cube, delay.cube)})
+                    .delay(delay.line + tween.line.delay * j)
                     .start()
             })
         })

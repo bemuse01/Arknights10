@@ -28,7 +28,9 @@ const move = {
     onUpdateLineOpacityTween(e, param){
         e.material.opacity = param.opacity
     },
-    onCompleteLineOpacityTween(){
+    onCompleteLineOpacityTween(element, tweens, delay){
         TWEEN.removeAll()
+
+        tween.createCubeTween(element, tweens, delay)
     }
 }
