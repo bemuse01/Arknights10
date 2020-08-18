@@ -1,7 +1,5 @@
 :root{
     --main-hex-color: #00fcfc;
-    --main-left-writer-color: rgba(0, 252, 252, 0.6);
-    --main-filter-drop-shadow: rgba(0, 252, 252, 0.4);
 }
 
 
@@ -115,8 +113,19 @@ div#main-line{
     height: 130vh;
 }
 div.main-line-square{
+    position: relative;
     float: left;
-    width: 5vw;
-    height: 5vw;
-    outline: 1px solid rgba(0, 252, 252, 0.1);
+    width: 10vh;
+    height: 10vh;
+    /* outline: 1px solid rgba(0, 252, 252, 0.1); */
+}
+div#main-circle div{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url('../image/bg/1.png') no-repeat center center / cover;
+    width: 130vw;
+    height: 130vh;
+    transition: opacity 0.5s;
 }

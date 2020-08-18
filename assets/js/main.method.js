@@ -16,17 +16,22 @@ const method = {
         })
         return arr
     },
-    createLine(util){
+    createLine(resized){
         let width =  param.util.width * param.main.line.size, height = param.util.height * param.main.line.size,
-            size = param.util.width * param.main.line.square
-            wLen = Math.ceil(width / size), hLen = Math.ceil(height / size)
+            size = param.util.height * param.main.line.square
+            wLen = Math.round(width / size), hLen = Math.round(height / size)
             arr = [], len = wLen * hLen
-            
+
         for(let i = 0; i < len; i++){
             arr[i] = {
                 id: i,
+                param: {
+                    len: wLen,
+                    played: false
+                },
                 style: {
-                    background: 'rgba(0, 252, 252, 0)'
+                    background: 'rgba(0, 252, 252, 0)',
+                    outline: `1px solid rgba(0, 252, 252, ${resized === true ? 0.1 : 0})`
                 }
             }
         }

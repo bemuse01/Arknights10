@@ -8,8 +8,11 @@ new Vue({
                     index: util.createRandomIndex(param.opening),
                 },
                 main: {
-                    line: method.createLine()
+                    line: method.createLine(false)
                 }
+            },
+            style: {
+                circle: {opacity: '0'}
             },
             show: {
                 opening: true,
@@ -30,6 +33,8 @@ new Vue({
             delay: {
                 opening: 1500,
                 main: {
+                    line: 2000,
+                    circle: 3000
                 }
             },
             util: {
@@ -101,6 +106,16 @@ new Vue({
         executeAfterOpening(){
             this.stopChangingText()
             this.closeText()
+            this.createTweens()
+            this.openCircle()
+        },
+
+
+
+
+        /* tween */
+        createTweens(){
+            tween.createLineTween(this.arr.main.line, tweens, this.delay.main)
         },
 
 
@@ -108,22 +123,12 @@ new Vue({
 
         /* main line */
         resizeLine(){
+            let resized = this.arr.main.line[this.arr.main.line.length - 1].param.played
             this.arr.main.line.length = 0
-
-            let width =  this.util.width * param.main.line.size, height = this.util.height * param.main.line.size,
-                size = this.util.width * param.main.line.square,
-                wLen = Math.ceil(width / size), hLen = Math.ceil(height / size),
-                arr = [], len = wLen * hLen
-       
-            for(let i = 0; i < len; i++){
-                arr[i] ={
-                    id: this.arr.main.line.length,
-                    style: {
-                        background: 'rgba(0, 252, 252, 0)'
-                    }
-                }
-            }
-            this.arr.main.line = arr
+            this.arr.main.line = method.createLine(resized)
+        },
+        openCircle(){
+            setTimeout(() => {this.style.circle.opacity = '0.5'}, this.delay.main.circle)
         },
 
 
@@ -132,6 +137,8 @@ new Vue({
         onWindowResize(){
             this.util.width = window.innerWidth
             this.util.height = window.innerHeight
+            param.util.width = window.innerWidth
+            param.util.height = window.innerHeight
 
             this.resizeLine()
         },
@@ -149,6 +156,7 @@ new Vue({
         render(){
             this.currentTime()
             if(this.play.opening) this.changeText()
+            TWEEN.update()
         },
         animate(){
             this.render()

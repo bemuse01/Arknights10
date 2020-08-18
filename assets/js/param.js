@@ -15,7 +15,15 @@ const param = {
     main: {
         line: {
             size: 1.3,
-            square: 0.05
+            square: 0.1
         }
+    }
+}
+
+const tweens = {
+    line: {
+        time: 1200,
+        delay: 45,
+        arr: [0, 0.3, 0.6, 0.3, 0.1]
     }
 }
