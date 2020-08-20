@@ -30,7 +30,20 @@ const param = {
                 height: 43,
                 delay: {
                     offset: 3.8,
-                    step: 0.01
+                    step: 0.015
+                }
+            },
+            number: {
+                hex: '0123456789ABCDEF',
+                degree: 25,
+                step: 300,
+                one: {
+                    len: 5,
+                    dist: 170
+                },
+                two: {
+                    len: 4,
+                    dist: 197
                 }
             }
         }

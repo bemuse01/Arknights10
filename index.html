@@ -49,14 +49,29 @@
                             :key="l.id"
                         ><div :style="l.style"></div></div>
                     </transition-group>
-                    <!-- <transition-group name="circle-line-element-transition"> -->
+                    <div id="circle-line">
                         <div
                             class="circle-line-element"
                             v-for="l in arr.main.circle.line"
                             :key="l.id"
                         ><div :style="l.style"></div>
                         </div>
-                    <!-- </transition-group> -->
+                    </div>
+                    <transition-group name="circle-logo-transition" tag="div" id="circle-number">
+                        <div 
+                            v-for="n in arr.main.circle.number"
+                            v-show="n.show"
+                            :key="n.key"
+                            :id="n.ids"
+                        >
+                            <div
+                                :class="n.classes"
+                                v-for="a in n.arr"
+                                :key="a.id"
+                            ><div :style="a.style"><span>{{a.text}}</span></div>
+                            </div>
+                        </div>
+                    </transition-group>
                 </div>
             </div>
         </div>

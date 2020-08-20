@@ -158,12 +158,14 @@ div#main-circle-wrap{
     height: 100vh;
     transform: rotateX(-12deg) rotateY(12deg);
 }
+/* circle logo */
 div.circle-logo-element{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
+/* circle line */
 div.circle-line-element{
     position: absolute;
     top: 50%;
@@ -174,4 +176,32 @@ div.circle-line-element > div{
     width: calc(100vh * 16 / 1080);
     height: calc(100vh * 86 / 1080);
     background: url('../image/source/circle-line-element.png') no-repeat center center / cover;
+}
+/* circle number */
+div#circle-number-one{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotation 120s infinite linear reverse;
+}
+div#circle-number-two{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotation 120s infinite linear;
+}
+div.circle-number-element{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: NotoMonoRegular;
+}
+div.circle-number-element-one{
+    font-size: 0.5vh;
+}
+div.circle-number-element-two{
+    font-size: 1.2vh;
 }

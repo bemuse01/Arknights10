@@ -92,5 +92,40 @@ const method = {
             }
         }
         return arr
+    },
+    createCircleNumber(){
+        let src = [
+            {id: 'circle-number-one', class:'circle-number-element-one'}, 
+            {id: 'circle-number-two', class:'circle-number-element-two'}
+        ], arr = [], number = param.main.circle.number
+        src.forEach((e, i) => {
+            arr.push({
+                key: arr.length,
+                ids: e.id,
+                classes: `circle-number-element ${e.class}`,
+                show: false,
+                arr: i === 0 ? this.createCircleNumberArray(number.one) : this.createCircleNumberArray(number.two, 180)
+            })
+        })
+        return arr
+    },
+    createCircleNumberArray(e, offset = 0){
+        let arr = [], len = e.len
+        
+        for(let i = 0; i < len; i++){
+            let length = Math.floor(Math.random() * 3 + 3), color = Math.random() * 0.4 + 0.1,
+                dist = param.util.height * (e.dist / 1080), deg = param.main.circle.number.degree * i + offset,
+                x = Math.cos(deg * param.util.radian) * dist, y = Math.sin(deg * param.util.radian) * dist
+
+            arr[i] = {
+                id: i,
+                text: util.createRandomHexText(length),
+                style: {
+                    transform: `translate(${x}px, ${y}px) rotate(${90 + deg}deg)`,
+                    color: `rgba(0, 252, 252, ${color})`
+                }
+            }
+        }
+        return arr
     }
 }

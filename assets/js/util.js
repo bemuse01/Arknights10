@@ -17,5 +17,10 @@ const util = {
         let arr = []
         for(let i = 0; i < param.arr.length; i++) arr[i] = i
         return util.shuffle(arr)
+    },
+    createRandomHexText(r){
+        let str = '', hex = param.main.circle.number.hex
+        for(let i = 0; i < r; i++) str += hex[Math.floor(Math.random() * hex.length)]
+        return str
     }
 }

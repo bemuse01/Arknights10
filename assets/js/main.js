@@ -11,7 +11,8 @@ new Vue({
                     line: method.createLine(false),
                     circle: {
                         logo: method.createCircleLogo(),
-                        line: method.createCircleLine()
+                        line: method.createCircleLine(),
+                        number: method.createCircleNumber()
                     }
                 }
             },
@@ -19,9 +20,7 @@ new Vue({
                 point: {opacity: '0'}
             },
             show: {
-                opening: true,
-                main: {
-                }
+                opening: true
             },
             time: {
                 ms: 0,
@@ -147,7 +146,13 @@ new Vue({
         openCircle(){
             this.openCircleLogo()
             this.openCircleLine()
+            this.openCircleNumber()
         },
+        resizeCircle(){
+            this.resizeCircleLine()
+            this.resizeCircleNumber()
+        },
+        /* main circle logo */
         openCircleLogo(){
             this.arr.main.circle.logo.forEach((e, i) => {
                 setTimeout(() => {e.show = true}, e.param.delay)
@@ -158,6 +163,7 @@ new Vue({
             e.param.rot = (e.param.rot + 5) % 360
             e.style.transform = `rotate(${e.param.rot}deg)`
         },
+        /* main circle line */
         resizeCircleLine(){
             let dist = param.util.height * ((param.main.circle.line.dist + param.main.circle.line.height) / 1080)
             this.arr.main.circle.line.forEach((e, i) => {
@@ -168,6 +174,25 @@ new Vue({
         openCircleLine(){
             this.arr.main.circle.line.forEach((e, i) => {
                 e.style.opacity = '1'
+            })
+        },
+        /* main circle number */
+        resizeCircleNumber(){
+            let degree = 30, num = param.main.circle.number
+
+            this.arr.main.circle.number.forEach((n, j) => {
+                n.arr.forEach((e, i) => {
+                    let dist = param.util.height * ((j === 0 ? num.one.dist : num.two.dist) / 1080), deg = degree * i,
+                        x = Math.cos(deg * param.util.radian) * dist, y = Math.sin(deg * param.util.radian) * dist
+
+                    e.style.transform = `translate(${x}px, ${y}px) rotate(${90 + deg}deg)`
+                })
+            })
+        },
+        openCircleNumber(){
+            let offset = this.arr.main.circle.logo[this.arr.main.circle.logo.length - 1].param.delay
+            this.arr.main.circle.number.forEach((e, i) => {
+                setTimeout(() => {e.show = true}, offset + param.main.circle.number.step)
             })
         },
 
@@ -181,7 +206,7 @@ new Vue({
             param.util.height = window.innerHeight
 
             this.resizeLine()
-            this.resizeCircleLine()
+            this.resizeCircle()
         },
         currentTime(){
             let date = new Date()
