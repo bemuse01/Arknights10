@@ -1,7 +1,8 @@
 const param = {
     util: {
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
+        radian: Math.PI / 180
     },
     opening: {
         arr: 'ARKNIGHTS'.split(''),
@@ -16,6 +17,22 @@ const param = {
         line: {
             size: 1.3,
             square: 0.1
+        },
+        circle: {
+            logo: {
+                delay: {
+                    offset: 3500,
+                    step: 300
+                }
+            },
+            line: {
+                dist: 73,
+                height: 43,
+                delay: {
+                    offset: 3.8,
+                    step: 0.01
+                }
+            }
         }
     }
 }

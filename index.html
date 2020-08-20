@@ -40,6 +40,24 @@
                         <div :style="style.point"></div>
                     </div>
                 </div>
+                <div id="main-circle-wrap">
+                    <transition-group name="circle-logo-transition" tag="div" id="circle-logo">
+                        <div
+                            class="circle-logo-element"
+                            v-for="l in arr.main.circle.logo"
+                            v-show="l.show"
+                            :key="l.id"
+                        ><div :style="l.style"></div></div>
+                    </transition-group>
+                    <!-- <transition-group name="circle-line-element-transition"> -->
+                        <div
+                            class="circle-line-element"
+                            v-for="l in arr.main.circle.line"
+                            :key="l.id"
+                        ><div :style="l.style"></div>
+                        </div>
+                    <!-- </transition-group> -->
+                </div>
             </div>
         </div>
         <script src="assets/js/main.js"></script>

@@ -31,6 +31,10 @@
     50%{opacity: 0;}
     100%{opacity: 1;}
 }
+@keyframes rotation{
+    0%{transform: rotate(0deg);}
+    100%{transform: rotate(360deg);}
+}
 /* opening transition */
 .text-transition-enter-active{
     transition: all 0.3s;
@@ -43,6 +47,20 @@
     opacity: 0;
 }
 .text-transition-leave-to{
+    opacity: 0;
+}
+/* circle logo transtion */
+.circle-logo-transition-enter-active{
+    animation: blink-open 0.06s 2 forwards;
+    transition: all 0.3s;
+}
+.circle-logo-transition-leave-active{
+    transition: all 0.3s;
+}
+.circle-logo-transition-enter{
+    opacity: 0;
+}
+.circle-logo-transition-leave-to{
     opacity: 0;
 }
 
@@ -128,4 +146,32 @@ div#main-point div{
     width: 130vw;
     height: 130vh;
     transition: opacity 0.5s;
+}
+
+
+
+
+/* main circle */
+div#main-circle-wrap{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    transform: rotateX(-12deg) rotateY(12deg);
+}
+div.circle-logo-element{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+div.circle-line-element{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+div.circle-line-element > div{
+    width: calc(100vh * 16 / 1080);
+    height: calc(100vh * 86 / 1080);
+    background: url('../image/source/circle-line-element.png') no-repeat center center / cover;
 }

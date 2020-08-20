@@ -36,5 +36,61 @@ const method = {
             }
         }
         return arr
+    },
+    createCircleLogo(){
+        let src = [
+            {
+                width: 'calc(100vh * 40 / 1080)',
+                height: 'calc(100vh * 40 / 1080)',
+                background: `url('assets/image/source/logo.png') no-repeat center center / cover`
+            },
+            {
+                width: 'calc(100vh * 114 / 1080)',
+                height: 'calc(100vh * 114 / 1080)',
+                background: `url('assets/image/source/logo-around-circle-1.png') no-repeat center center / cover`
+            },
+            {
+                width: 'calc(100vh * 98 / 1080)',
+                height: 'calc(100vh * 98 / 1080)',
+                background: `url('assets/image/source/logo-around-circle-2.png') no-repeat center center / cover`,
+                transform: 'rotate(0deg)'
+            },
+            {
+                width: 'calc(100vh * 136 / 1080)',
+                height: 'calc(100vh * 136 / 1080)',
+                background: `url('assets/image/source/logo-around-circle-3.png') no-repeat center center / cover`,
+                animation: 'rotation 30s linear infinite'
+            }
+        ], arr = []
+
+        src.forEach(e => {
+            arr.push({
+                id: arr.length,
+                param: {
+                    rot: 0,
+                    delay: param.main.circle.logo.delay.offset + arr.length * param.main.circle.logo.delay.step
+                },
+                show: false,
+                style: e
+            })
+        })
+        return arr
+    },
+    createCircleLine(){
+        let arr = [], len = 360 / 9, dist = param.util.height * ((param.main.circle.line.dist + param.main.circle.line.height) / 1080)
+
+        for(let i = 0; i < len; i++){
+            let deg = i * 9 - 90, x = Math.cos(deg * param.util.radian) * dist, y = Math.sin(deg * param.util.radian) * dist,
+                delay = param.main.circle.line.delay.offset + param.main.circle.line.delay.step * i
+            arr[i] = {
+                id: i,
+                style: {
+                    opacity: '0',
+                    transform: `translate(${x}px, ${y}px) rotate(${90 + deg}deg)`,
+                    transition: `opacity 0.3s ${delay}s`
+                }
+            }
+        }
+        return arr
     }
 }

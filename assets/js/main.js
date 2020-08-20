@@ -8,7 +8,11 @@ new Vue({
                     index: util.createRandomIndex(param.opening),
                 },
                 main: {
-                    line: method.createLine(false)
+                    line: method.createLine(false),
+                    circle: {
+                        logo: method.createCircleLogo(),
+                        line: method.createCircleLine()
+                    }
                 }
             },
             style: {
@@ -26,9 +30,7 @@ new Vue({
                 hour: 0,
             },
             play: {
-                opening: true,
-                main: {
-                }
+                opening: true
             },
             delay: {
                 opening: 1500,
@@ -59,8 +61,14 @@ new Vue({
         computedClock(){
             return `${this.computedHour}:${this.computedMin}:${this.computedSec}.${(this.computedMs + '')[0]}`
         },
+        watchSecond(){
+            return this.time.sec
+        }
     },
     watch: {
+        watchSecond(){
+            this.rotateCircleLogo()
+        }
     },
     mounted(){
         this.init()
@@ -107,6 +115,7 @@ new Vue({
             this.stopChangingText()
             this.closeText()
             this.createTweens()
+            this.openPoint()
             this.openCircle()
         },
 
@@ -127,8 +136,39 @@ new Vue({
             this.arr.main.line.length = 0
             this.arr.main.line = method.createLine(resized)
         },
-        openCircle(){
+        openPoint(){
             setTimeout(() => {this.style.point.opacity = '0.6'}, this.delay.main.point)
+        },
+
+
+
+
+        /* main circle */
+        openCircle(){
+            this.openCircleLogo()
+            this.openCircleLine()
+        },
+        openCircleLogo(){
+            this.arr.main.circle.logo.forEach((e, i) => {
+                setTimeout(() => {e.show = true}, e.param.delay)
+            })
+        },
+        rotateCircleLogo(){
+            let e = this.arr.main.circle.logo[this.arr.main.circle.logo.length - 2]
+            e.param.rot = (e.param.rot + 5) % 360
+            e.style.transform = `rotate(${e.param.rot}deg)`
+        },
+        resizeCircleLine(){
+            let dist = param.util.height * ((param.main.circle.line.dist + param.main.circle.line.height) / 1080)
+            this.arr.main.circle.line.forEach((e, i) => {
+                let deg = i * 9 - 90, x = Math.cos(deg * param.util.radian) * dist, y = Math.sin(deg * param.util.radian) * dist
+                e.style.transform = `translate(${x}px, ${y}px) rotate(${90 + deg}deg)`
+            })
+        },
+        openCircleLine(){
+            this.arr.main.circle.line.forEach((e, i) => {
+                e.style.opacity = '1'
+            })
         },
 
 
@@ -141,6 +181,7 @@ new Vue({
             param.util.height = window.innerHeight
 
             this.resizeLine()
+            this.resizeCircleLine()
         },
         currentTime(){
             let date = new Date()
