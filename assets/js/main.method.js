@@ -27,7 +27,7 @@ const method = {
                 id: i,
                 param: {
                     len: wLen,
-                    played: false
+                    played: resized
                 },
                 style: {
                     background: 'rgba(0, 252, 252, 0)',

@@ -119,12 +119,12 @@ div.main-line-square{
     height: 10vh;
     /* outline: 1px solid rgba(0, 252, 252, 0.1); */
 }
-div#main-circle div{
+div#main-point div{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: url('../image/bg/1.png') no-repeat center center / cover;
+    background: url('../image/bg/points_2px.png') no-repeat center center / cover;
     width: 130vw;
     height: 130vh;
     transition: opacity 0.5s;

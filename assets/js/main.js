@@ -12,7 +12,7 @@ new Vue({
                 }
             },
             style: {
-                circle: {opacity: '0'}
+                point: {opacity: '0'}
             },
             show: {
                 opening: true,
@@ -34,7 +34,7 @@ new Vue({
                 opening: 1500,
                 main: {
                     line: 2000,
-                    circle: 3000
+                    point: 3000
                 }
             },
             util: {
@@ -128,7 +128,7 @@ new Vue({
             this.arr.main.line = method.createLine(resized)
         },
         openCircle(){
-            setTimeout(() => {this.style.circle.opacity = '0.5'}, this.delay.main.circle)
+            setTimeout(() => {this.style.point.opacity = '0.6'}, this.delay.main.point)
         },
 
 
