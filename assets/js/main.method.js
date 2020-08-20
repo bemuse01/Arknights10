@@ -103,8 +103,11 @@ const method = {
                 key: arr.length,
                 ids: e.id,
                 classes: `circle-number-element ${e.class}`,
-                show: false,
-                arr: i === 0 ? this.createCircleNumberArray(number.one) : this.createCircleNumberArray(number.two, 180)
+                arr: i === 0 ? this.createCircleNumberArray(number.one) : this.createCircleNumberArray(number.two, 180),
+                style: {
+                    opacity: '0',
+                    transition: 'none'
+                }
             })
         })
         return arr

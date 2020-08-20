@@ -190,9 +190,10 @@ new Vue({
             })
         },
         openCircleNumber(){
-            let offset = this.arr.main.circle.logo[this.arr.main.circle.logo.length - 1].param.delay
+            let offset = this.arr.main.circle.logo[this.arr.main.circle.logo.length - 1].param.delay / 1000
             this.arr.main.circle.number.forEach((e, i) => {
-                setTimeout(() => {e.show = true}, offset + param.main.circle.number.step)
+                e.style.transition = `opacity 0.3s ${offset + param.main.circle.number.step}s`
+                e.style.opacity = '1'
             })
         },
 

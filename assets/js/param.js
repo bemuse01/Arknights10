@@ -36,7 +36,7 @@ const param = {
             number: {
                 hex: '0123456789ABCDEF',
                 degree: 25,
-                step: 300,
+                step: 0.3,
                 one: {
                     len: 5,
                     dist: 170
