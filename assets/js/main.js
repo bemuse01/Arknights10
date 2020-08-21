@@ -159,7 +159,7 @@ new Vue({
             })
         },
         rotateCircleLogo(){
-            let e = this.arr.main.circle.logo[this.arr.main.circle.logo.length - 2]
+            let e = this.arr.main.circle.logo[2]
             e.param.rot = (e.param.rot + 5) % 360
             e.style.transform = `rotate(${e.param.rot}deg)`
         },
@@ -178,11 +178,12 @@ new Vue({
         },
         /* main circle number */
         resizeCircleNumber(){
-            let degree = 30, num = param.main.circle.number
+            let num = param.main.circle.number
 
             this.arr.main.circle.number.forEach((n, j) => {
                 n.arr.forEach((e, i) => {
-                    let dist = param.util.height * ((j === 0 ? num.one.dist : num.two.dist) / 1080), deg = degree * i,
+                    let dist = param.util.height * ((j === 0 ? num.one.dist : num.two.dist) / 1080), 
+                        deg = num.degree * i + (j === 0 ? 180 : 225),
                         x = Math.cos(deg * param.util.radian) * dist, y = Math.sin(deg * param.util.radian) * dist
 
                     e.style.transform = `translate(${x}px, ${y}px) rotate(${90 + deg}deg)`

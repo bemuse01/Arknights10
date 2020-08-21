@@ -22,7 +22,7 @@ const param = {
             logo: {
                 delay: {
                     offset: 3500,
-                    step: 300
+                    step: 200
                 }
             },
             line: {
@@ -35,15 +35,15 @@ const param = {
             },
             number: {
                 hex: '0123456789ABCDEF',
-                degree: 25,
+                degree: 20,
                 step: 0.3,
                 one: {
-                    len: 5,
-                    dist: 170
+                    len: 10,
+                    dist: 165
                 },
                 two: {
-                    len: 4,
-                    dist: 197
+                    len: 8,
+                    dist: 177
                 }
             }
         }

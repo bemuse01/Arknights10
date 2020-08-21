@@ -38,32 +38,9 @@ const method = {
         return arr
     },
     createCircleLogo(){
-        let src = [
-            {
-                width: 'calc(100vh * 40 / 1080)',
-                height: 'calc(100vh * 40 / 1080)',
-                background: `url('assets/image/source/logo.png') no-repeat center center / cover`
-            },
-            {
-                width: 'calc(100vh * 114 / 1080)',
-                height: 'calc(100vh * 114 / 1080)',
-                background: `url('assets/image/source/logo-around-circle-1.png') no-repeat center center / cover`
-            },
-            {
-                width: 'calc(100vh * 98 / 1080)',
-                height: 'calc(100vh * 98 / 1080)',
-                background: `url('assets/image/source/logo-around-circle-2.png') no-repeat center center / cover`,
-                transform: 'rotate(0deg)'
-            },
-            {
-                width: 'calc(100vh * 136 / 1080)',
-                height: 'calc(100vh * 136 / 1080)',
-                background: `url('assets/image/source/logo-around-circle-3.png') no-repeat center center / cover`,
-                animation: 'rotation 30s linear infinite'
-            }
-        ], arr = []
+        let arr = []
 
-        src.forEach(e => {
+        source.forEach(e => {
             arr.push({
                 id: arr.length,
                 param: {
@@ -103,7 +80,7 @@ const method = {
                 key: arr.length,
                 ids: e.id,
                 classes: `circle-number-element ${e.class}`,
-                arr: i === 0 ? this.createCircleNumberArray(number.one) : this.createCircleNumberArray(number.two, 180),
+                arr: i === 0 ? this.createCircleNumberArray(number.one, 180) : this.createCircleNumberArray(number.two, 225),
                 style: {
                     opacity: '0',
                     transition: 'none'
@@ -116,7 +93,7 @@ const method = {
         let arr = [], len = e.len
         
         for(let i = 0; i < len; i++){
-            let length = Math.floor(Math.random() * 3 + 3), color = Math.random() * 0.4 + 0.1,
+            let length = Math.floor(Math.random() * 3 + 3), color = Math.random() * 0.2 + 0.4,
                 dist = param.util.height * (e.dist / 1080), deg = param.main.circle.number.degree * i + offset,
                 x = Math.cos(deg * param.util.radian) * dist, y = Math.sin(deg * param.util.radian) * dist
 
