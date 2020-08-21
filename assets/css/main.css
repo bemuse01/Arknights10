@@ -111,28 +111,19 @@ div#main{
     left: 0;
     width: 100vw;
     height: 100vh;
-    perspective: 1000px;
 }
 
 
 
 
 /* main line */
-div#main-line-wrap{
-    position: absolute;
-    top: 15vh;
-    left: 15vw;
-    width: 100vw;
-    height: 100vh;
-    transform: rotateX(-12deg) rotateY(12deg);
-}
 div#main-line{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 130vw;
-    height: 130vh;
+    width: 110vw;
+    height: 110vh;
 }
 div.main-line-square{
     position: relative;
@@ -147,8 +138,8 @@ div#main-point div{
     left: 50%;
     transform: translate(-50%, -50%);
     background: url('../image/bg/points_2px.png') no-repeat center center / cover;
-    width: 130vw;
-    height: 130vh;
+    width: 100vw;
+    height: 100vh;
     transition: opacity 0.5s;
 }
 
@@ -156,12 +147,6 @@ div#main-point div{
 
 
 /* main circle */
-div#main-circle-wrap{
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    transform: rotateX(-12deg) rotateY(12deg);
-}
 /* circle logo */
 div.circle-logo-element{
     position: absolute;
@@ -204,8 +189,8 @@ div.circle-number-element{
     font-family: tamaMini;
 }
 div.circle-number-element-one{
-    font-size: 1.8vh;
+    font-size: 1.7vh;
 }
 div.circle-number-element-two{
-    font-size: 1.8vh;
+    font-size: 1.7vh;
 }

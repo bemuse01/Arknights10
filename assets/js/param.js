@@ -15,7 +15,7 @@ const param = {
     },
     main: {
         line: {
-            size: 1.3,
+            size: 1.1,
             square: 0.1
         },
         circle: {
