@@ -5,37 +5,60 @@ new Vue({
             arr: {
                 opening: {
                     text: method.createOpeningText(param.opening),
-                    index: util.createRandomIndex(param.opening),
+                    index: method.createRandomIndex(param.opening),
                 },
                 main: {
-                    line: method.createLine(false),
-                    circle: {
-                        logo: method.createCircleLogo(),
-                        line: method.createCircleLine(),
-                        number: method.createCircleNumber()
-                    }
+                    leftWriter: method.createWriter(),
+                    rightClock: method.createClock()
                 }
             },
-            style: {
-                point: {opacity: '0'}
-            },
             show: {
-                opening: true
+                opening: true,
+                main: {
+                }
             },
             time: {
                 ms: 0,
                 sec: 0,
                 min: 0,
                 hour: 0,
+                /* sday: null,
+                nday: 0,
+                month: 0,
+                year: 0 */
             },
             play: {
-                opening: true
+                opening: true,
+                main: {
+                    leftWriter: false
+                }
             },
             delay: {
                 opening: 1500,
                 main: {
-                    line: 2000,
-                    point: 3000
+                    leftWriter: 2000,
+                    canvas: {
+                        line: 2000,
+                        cube: 500
+                    }
+                }
+            },
+            three: {
+                renderer: null,
+                scene: null,
+                camera: null,
+                group: {
+                    cube: null,
+                    line: null
+                },
+                pos: {
+                    cube: util.setCubePositionByParam(three.cube),
+                    sphere: null,
+                    circle: null,
+                    cone: null,
+                    icosahedron: null,
+                    box: null,
+                    cylinder: null
                 }
             },
             util: {
@@ -45,6 +68,11 @@ new Vue({
         }
     },
     computed: {
+        leftWriterStyle(){
+            let width = this.util.width * param.main.leftWriter.width
+                height = this.util.height * param.main.leftWriter.height
+            return {width: `${width}px`, height: `${height}px`}
+        },
         computedMs(){
             return this.time.ms < 10 ? '00' + this.time.ms : this.time.ms < 100 ? '0' + this.time.ms : this.time.ms
         },
@@ -62,11 +90,12 @@ new Vue({
         },
         watchSecond(){
             return this.time.sec
-        }
+        },
+
     },
     watch: {
         watchSecond(){
-            this.rotateCircleLogo()
+            this.changeOrder(this.arr.main.leftWriter)
         }
     },
     mounted(){
@@ -74,6 +103,7 @@ new Vue({
     },
     methods: {
         init(){
+            this.initThree()
             this.pickText()
             this.animate()
 
@@ -113,102 +143,117 @@ new Vue({
         executeAfterOpening(){
             this.stopChangingText()
             this.closeText()
+            this.playWriter()
             this.createTweens()
-            this.openPoint()
-            this.openCircle()
         },
 
 
 
 
-        /* tween */
+        /* main canvas */
+        initThree(){
+            let canvas = document.getElementById('main-canvas')
+            object.init(canvas, this.three)
+
+            this.createObjects()
+            this.transformGroup()
+        },
+        renderThree(){
+            this.playMoves()
+
+            this.three.camera.lookAt(this.three.scene.position)
+            this.three.renderer.render(this.three.scene, this.three.camera)
+        },
+        resizeThree(){
+            this.three.camera.aspect = param.util.width / param.util.height
+            this.three.camera.updateProjectionMatrix()
+
+            this.three.renderer.setSize(param.util.width, param.util.height)
+        },
+        transformGroup(){
+            let x = 18, y = 14, z = 0
+            this.three.group.line.rotation.set(x * param.util.radian, y * param.util.radian, z * param.util.radian)
+        },
+        createObjects(){
+            object.createHorizonLines(this.three)
+            object.createVerticalLines(this.three)
+            util.setObjectPositionByParam(this.three, three.cube)
+            object.createCube(this.three, three.cube)
+        },
+        playMoves(){
+            move.moveCube(this.three.group.cube, three.cube)
+        },
         createTweens(){
-            tween.createLineTween(this.arr.main.line, tweens, this.delay.main)
+            tween.createLineTween(this.three, tweens, this.delay.main.canvas)
+            // tween.createCubeTween(this.three, tweens.cube, this.delay.main.canvas.cube)
         },
 
 
 
 
-        /* main line */
-        resizeLine(){
-            let resized = this.arr.main.line[this.arr.main.line.length - 1].param.played
-            this.arr.main.line.length = 0
-            this.arr.main.line = method.createLine(resized)
+        /* main left writer */
+        resizeWriter(arr){
+            let currentLen = arr.length,
+                height = param.util.height * param.main.leftWriter.height,
+                len = Math.floor(height / param.main.leftWriter.text.height)
+            
+            if(currentLen === len) return
+            else if(currentLen > len) for(let i = 0; i < currentLen - len; i++) arr.pop()
+            else{
+                for(let i = 0; i < len - currentLen; i++){
+                    let opacity = Math.random() * param.main.leftWriter.opacity + param.main.leftWriter.opacity
+                    arr.push({
+                        id: arr.length,
+                        text: '',
+                        sen: util.createRandomCommand(),
+                        style: {
+                            opacity: opacity
+                        }
+                    })
+                }
+            }
         },
-        openPoint(){
-            setTimeout(() => {this.style.point.opacity = '0.6'}, this.delay.main.point)
-        },
-
-
-
-
-        /* main circle */
-        openCircle(){
-            this.openCircleLogo()
-            this.openCircleLine()
-            this.openCircleNumber()
-        },
-        resizeCircle(){
-            this.resizeCircleLine()
-            this.resizeCircleNumber()
-        },
-        /* main circle logo */
-        openCircleLogo(){
-            this.arr.main.circle.logo.forEach((e, i) => {
-                setTimeout(() => {e.show = true}, e.param.delay)
+        typeWriter(arr){
+            arr.forEach(e => {
+                let chance = Math.random()
+                if(chance > 0.9875 && e.sen.length === 0) this.createSentence(e)
+                this.typeCharacter(e)
             })
         },
-        rotateCircleLogo(){
-            let e = this.arr.main.circle.logo[2]
-            e.param.rot = (e.param.rot + 5) % 360
-            e.style.transform = `rotate(${e.param.rot}deg)`
+        typeCharacter(e){
+            let temp = e.sen.pop()
+            if(temp === undefined) return
+            e.text += temp
         },
-        /* main circle line */
-        resizeCircleLine(){
-            let dist = param.util.height * ((param.main.circle.line.dist + param.main.circle.line.height) / 1080)
-            this.arr.main.circle.line.forEach((e, i) => {
-                let deg = i * 9 - 90, x = Math.cos(deg * param.util.radian) * dist, y = Math.sin(deg * param.util.radian) * dist
-                e.style.transform = `translate(${x}px, ${y}px) rotate(${90 + deg}deg)`
-            })
+        createSentence(e){
+            e.text = ''
+            e.style.opacity = Math.random() * param.main.leftWriter.opacity + param.main.leftWriter.opacity
+            e.sen = util.createRandomCommand()
         },
-        openCircleLine(){
-            this.arr.main.circle.line.forEach((e, i) => {
-                e.style.opacity = '1'
-            })
-        },
-        /* main circle number */
-        resizeCircleNumber(){
-            let num = param.main.circle.number
+        changeOrder(arr){
+            let index = Math.floor(Math.random() * arr.length),
+                item = arr[index]
 
-            this.arr.main.circle.number.forEach((n, j) => {
-                n.arr.forEach((e, i) => {
-                    let dist = param.util.height * ((j === 0 ? num.one.dist : num.two.dist) / 1080), 
-                        deg = num.degree * i + (j === 0 ? 180 : 225),
-                        x = Math.cos(deg * param.util.radian) * dist, y = Math.sin(deg * param.util.radian) * dist
+            arr.splice(index, 1)
 
-                    e.style.transform = `translate(${x}px, ${y}px) rotate(${90 + deg}deg)`
-                })
-            })
+            arr.unshift(item)
         },
-        openCircleNumber(){
-            let offset = this.arr.main.circle.logo[this.arr.main.circle.logo.length - 1].param.delay / 1000
-            this.arr.main.circle.number.forEach((e, i) => {
-                e.style.transition = `opacity 0.3s ${offset + param.main.circle.number.step}s`
-                e.style.opacity = '1'
-            })
+        playWriter(){
+            setTimeout(() => {this.play.main.leftWriter = true}, this.delay.main.leftWriter)
         },
-
+        
 
 
 
         onWindowResize(){
-            this.util.width = window.innerWidth
-            this.util.height = window.innerHeight
             param.util.width = window.innerWidth
             param.util.height = window.innerHeight
+            this.util.width = window.innerWidth
+            this.util.height = window.innerHeight
+            param.main.leftWriter.text.len = Math.round((param.util.width * param.main.leftWriter.width) * (1 / 100))
 
-            this.resizeLine()
-            this.resizeCircle()
+            this.resizeThree()
+            this.resizeWriter(this.arr.main.leftWriter)
         },
         currentTime(){
             let date = new Date()
@@ -216,6 +261,12 @@ new Vue({
             this.time.sec = date.getSeconds()
             this.time.min = date.getMinutes()
             this.time.hour = date.getHours()
+           /*  this.time.sday = date.getDay()
+            this.time.nday = date.getDate()
+            this.time.month = date.getMonth()
+            this.time.year = date.getFullYear()
+
+            setTimeout(this.currentTime, 1000) */
         },
 
 
@@ -224,7 +275,9 @@ new Vue({
         render(){
             this.currentTime()
             if(this.play.opening) this.changeText()
+            this.renderThree()
             TWEEN.update()
+            if(this.play.main.leftWriter) this.typeWriter(this.arr.main.leftWriter)
         },
         animate(){
             this.render()

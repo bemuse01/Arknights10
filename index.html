@@ -6,11 +6,12 @@
         <meta name="keywords" content="html, css, js, three.js, vue.js, tween.js">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="assets/js/vue.min.js"></script>
+        <script src="assets/js/three.min.r118.js"></script>
         <script src="assets/js/tween.umd.js"></script>
         <script src="assets/js/param.js"></script>
-        <script src="assets/js/source.js"></script>
         <script src="assets/js/util.js"></script>
         <script src="assets/js/main.method.js"></script>
+        <script src="assets/js/object.js"></script>
         <script src="assets/js/move.js"></script>
         <script src="assets/js/tween.js"></script>
         <link href="assets/css/main.css" rel="stylesheet" type="text/css">
@@ -28,47 +29,19 @@
                 </div>
             </transition>
             <div id="main">
-                <div id="main-line-wrap">
-                    <div id="main-line">
-                        <div
-                            class="main-line-square"
-                            v-for="l in arr.main.line"
-                            :key="l.id"
-                            :style="l.style"
-                        ></div>
-                    </div>
-                    <div id="main-point">
-                        <div :style="style.point"></div>
-                    </div>
+                <div id="main-canvas-wrap">
+                    <canvas id="main-canvas"></canvas>
                 </div>
-                <div id="main-circle-wrap">
-                    <transition-group name="circle-logo-transition" tag="div" id="circle-logo">
-                        <div
-                            class="circle-logo-element"
-                            v-for="l in arr.main.circle.logo"
-                            v-show="l.show"
-                            :key="l.id"
-                        ><div :style="l.style"></div></div>
-                    </transition-group>
-                    <div id="circle-line">
-                        <div
-                            class="circle-line-element"
-                            v-for="l in arr.main.circle.line"
-                            :key="l.id"
-                        ><div :style="l.style"></div>
-                        </div>
-                    </div>
-                    <div 
-                        v-for="n in arr.main.circle.number"
-                        :key="n.key"
-                        :id="n.ids"
-                        :style="n.style"
-                    >
-                        <div
-                            :class="n.classes"
-                            v-for="a in n.arr"
-                            :key="a.id"
-                        ><div :style="a.style"><span>{{a.text}}</span></div>
+                <div id="main-left-writer">
+                    <div id="main-left-writer-pers">
+                        <div id="main-left-writer-tsl" :style="leftWriterStyle">
+                            <div
+                                class="left-writer"
+                                v-for="l in arr.main.leftWriter"
+                                :key="l.id"
+                                :style="l.style"
+                            ><span>{{l.text}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>

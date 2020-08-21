@@ -1,5 +1,7 @@
 :root{
     --main-hex-color: #00fcfc;
+    --main-left-writer-color: rgba(0, 252, 252, 0.6);
+    --main-filter-drop-shadow: rgba(0, 252, 252, 0.4);
 }
 
 
@@ -17,10 +19,6 @@
     src: url('../font/Inconsolata-Light.ttf');
     font-family: InconsolataLight;
 }
-@font-face{
-    src: url('../font/tama_mini01.ttf');
-    font-family: tamaMini;
-}
 
 
 
@@ -35,10 +33,6 @@
     50%{opacity: 0;}
     100%{opacity: 1;}
 }
-@keyframes rotation{
-    0%{transform: rotate(0deg);}
-    100%{transform: rotate(360deg);}
-}
 /* opening transition */
 .text-transition-enter-active{
     transition: all 0.3s;
@@ -51,20 +45,6 @@
     opacity: 0;
 }
 .text-transition-leave-to{
-    opacity: 0;
-}
-/* circle logo transtion */
-.circle-logo-transition-enter-active{
-    animation: blink-open 0.06s 2 forwards;
-    transition: all 0.3s;
-}
-.circle-logo-transition-leave-active{
-    transition: all 0.3s;
-}
-.circle-logo-transition-enter{
-    opacity: 0;
-}
-.circle-logo-transition-leave-to{
     opacity: 0;
 }
 
@@ -111,101 +91,43 @@ div#main{
     left: 0;
     width: 100vw;
     height: 100vh;
+    background: rgba(187, 226, 228, 0)
+}
+
+
+
+
+/* main canvas */
+canvas#main-canvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+
+
+/* main left writer */
+div#main-left-writer-pers{
     perspective: 1000px;
-}
-
-
-
-
-/* main line */
-div#main-line-wrap{
-    position: absolute;
-    top: 15vh;
-    left: 15vw;
-    width: 100vw;
-    height: 100vh;
-    transform: rotateX(-12deg) rotateY(12deg);
-}
-div#main-line{
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 130vw;
-    height: 130vh;
+    left: calc(100vh * 40 / 1080);
+    transform: translate(0px, -50%);
+    filter: drop-shadow(6px 10px 1px var(--main-filter-drop-shadow));
 }
-div.main-line-square{
-    position: relative;
-    float: left;
-    width: 10vh;
-    height: 10vh;
-    /* outline: 1px solid rgba(0, 252, 252, 0.1); */
+div#main-left-writer-tsl{
+    overflow: hidden;
+    transform: rotateY(38deg);
 }
-div#main-point div{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: url('../image/bg/points_2px.png') no-repeat center center / cover;
-    width: 130vw;
-    height: 130vh;
-    transition: opacity 0.5s;
+div.left-writer{
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-family: NotoMonoRegular;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
 }
-
-
-
-
-/* main circle */
-div#main-circle-wrap{
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    transform: rotateX(-12deg) rotateY(12deg);
-}
-/* circle logo */
-div.circle-logo-element{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-/* circle line */
-div.circle-line-element{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-div.circle-line-element > div{
-    width: calc(100vh * 16 / 1080);
-    height: calc(100vh * 86 / 1080);
-    background: url('../image/source/circle-line-element.png') no-repeat center center / cover;
-}
-/* circle number */
-div#circle-number-one{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: rotation 120s infinite linear reverse;
-}
-div#circle-number-two{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: rotation 120s infinite linear;
-}
-div.circle-number-element{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: tamaMini;
-}
-div.circle-number-element-one{
-    font-size: 1.8vh;
-}
-div.circle-number-element-two{
-    font-size: 1.8vh;
+div.left-writer:last-child{
+    margin-bottom: 0;
 }
