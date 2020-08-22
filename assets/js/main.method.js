@@ -23,6 +23,17 @@ const method = {
             arr = [], len = wLen * hLen
 
         for(let i = 0; i < len; i++){
+            let outline = 0, background = 0
+            if(resized && Math.random() > tweens.line.chance) {
+                outline = tweens.line.outline.light[tweens.line.outline.light.length - 1]
+                background = tweens.line.background
+            }else if(resized) {
+                outline = 0.1
+                background = 0
+            }else {
+                outline = 0
+                background = 0
+            }
             arr[i] = {
                 id: i,
                 param: {
@@ -30,8 +41,8 @@ const method = {
                     played: resized
                 },
                 style: {
-                    background: 'rgba(0, 252, 252, 0)',
-                    outline: `1px solid rgba(0, 252, 252, ${resized === true ? 0.1 : 0})`
+                    background: `rgba(0, 252, 252, ${background})`,
+                    outline: `1px solid rgba(0, 252, 252, ${outline})`
                 }
             }
         }
@@ -51,23 +62,6 @@ const method = {
                 style: e
             })
         })
-        return arr
-    },
-    createCircleLine(){
-        let arr = [], len = 360 / 9, dist = param.util.height * ((param.main.circle.line.dist + param.main.circle.line.height) / 1080)
-
-        for(let i = 0; i < len; i++){
-            let deg = i * 9 - 90, x = Math.cos(deg * param.util.radian) * dist, y = Math.sin(deg * param.util.radian) * dist,
-                delay = param.main.circle.line.delay.offset + param.main.circle.line.delay.step * i
-            arr[i] = {
-                id: i,
-                style: {
-                    opacity: '0',
-                    transform: `translate(${x}px, ${y}px) rotate(${90 + deg}deg)`,
-                    transition: `opacity 0.3s ${delay}s`
-                }
-            }
-        }
         return arr
     },
     createCircleNumber(){
@@ -107,5 +101,22 @@ const method = {
             }
         }
         return arr
-    }
+    },
+    createCircleShape(p){
+        let arr = [], len = 360 / 9, dist = param.util.height * ((p.dist + p.height) / 1080)
+
+        for(let i = 0; i < len; i++){
+            let deg = i * 9 - 90, x = Math.cos(deg * param.util.radian) * dist, y = Math.sin(deg * param.util.radian) * dist,
+                delay = p.delay.offset + p.delay.step * i
+            arr[i] = {
+                id: i,
+                style: {
+                    opacity: '0',
+                    transform: `translate(${x}px, ${y}px) rotate(${90 + deg}deg)`,
+                    transition: `opacity 0.3s ${delay}s`
+                }
+            }
+        }
+        return arr
+    },
 }

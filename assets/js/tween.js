@@ -4,7 +4,12 @@ const tween = {
     },
     addLineOutlineTween(arr, tweens, delay){
         arr.forEach((e, i) => {
-            let start = {outline: 0}, end = {outline: tweens.line.arr}
+            let chance = Math.random() < tweens.line.chance
+            let start = {outline: 0, background: 0}, 
+                end = {
+                    outline: chance ? tweens.line.outline.dark : tweens.line.outline.light, 
+                    background: chance ? 0 : tweens.line.background
+                }
 
             let tw = new TWEEN.Tween(start)
                 .to(end, tweens.line.time)

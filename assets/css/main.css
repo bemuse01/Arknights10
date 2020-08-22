@@ -194,3 +194,22 @@ div.circle-number-element-one{
 div.circle-number-element-two{
     font-size: 1.7vh;
 }
+/* circle shape */
+div#circle-shape{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotation 300s linear infinite reverse;
+}
+div.circle-shape-element{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+div.circle-shape-element > div{
+    width: calc(100vh * 20 / 1080);
+    height: calc(100vh * 49 / 1080);
+    background: url('../image/source/circle-shape-element.png') no-repeat center center / cover;
+}

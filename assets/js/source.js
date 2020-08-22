@@ -43,5 +43,34 @@ const source = [
         width: 'calc(100vh * 406 / 1080)',
         height: 'calc(100vh * 406 / 1080)',
         background: `url('assets/image/source/outer-circle-4.png') no-repeat center center / cover`,
+    },
+    {
+        width: 'calc(100vh * 504 / 1080)',
+        height: 'calc(100vh * 504 / 1080)',
+        background: `url('assets/image/source/outer-circle-5.png') no-repeat center center / cover`,
+    },
+    {
+        width: 'calc(100vh * 516 / 1080)',
+        height: 'calc(100vh * 516 / 1080)',
+        background: `url('assets/image/source/outer-circle-6.png') no-repeat center center / cover`,
+        animation: 'rotation 240s linear infinite'
+    },
+    /* {
+        width: 'calc(100vh * 612 / 1080)',
+        height: 'calc(100vh * 612 / 1080)',
+        background: `url('assets/image/source/outer-circle-7.png') no-repeat center center / cover`,
+        animation: 'rotation 300s linear infinite reverse'
+    }, */
+    {
+        width: 'calc(100vh * 780 / 1080)',
+        height: 'calc(100vh * 780 / 1080)',
+        background: `url('assets/image/source/outer-circle-8.png') no-repeat center center / cover`,
+    },
+    {
+        width: 'calc(100vh * 734 / 1080)',
+        height: 'calc(100vh * 734 / 1080)',
+        background: `url('assets/image/source/outer-circle-9.png') no-repeat center center / cover`,
+        animation: 'rotation 300s linear infinite'
+
     }
 ]

@@ -22,12 +22,12 @@ const param = {
             logo: {
                 delay: {
                     offset: 3500,
-                    step: 200
+                    step: 150
                 }
             },
             line: {
                 dist: 73,
-                height: 43,
+                height: 86 / 2,
                 delay: {
                     offset: 3.8,
                     step: 0.015
@@ -45,6 +45,14 @@ const param = {
                     len: 8,
                     dist: 177
                 }
+            },
+            shape: {
+                dist: 257,
+                height: 49 / 2,
+                delay: {
+                    offset: 4.2,
+                    step: 0.015
+                }
             }
         }
     }
@@ -54,6 +62,11 @@ const tweens = {
     line: {
         time: 1200,
         delay: 45,
-        arr: [0, 0.3, 0.6, 0.3, 0.1]
+        chance: 0.85,
+        background: 0.025,
+        outline: {
+            dark: [0, 0.3, 0.6, 0.3, 0.1],
+            light: [0, 0.3, 0.6, 0.3, 0.3]
+        }
     }
 }

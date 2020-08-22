@@ -71,6 +71,14 @@
                         ><div :style="a.style"><span>{{a.text}}</span></div>
                         </div>
                     </div>
+                    <div id="circle-shape">
+                        <div
+                            class="circle-shape-element"
+                            v-for="l in arr.main.circle.shape"
+                            :key="l.id"
+                        ><div :style="l.style"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

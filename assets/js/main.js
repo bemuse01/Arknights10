@@ -11,8 +11,9 @@ new Vue({
                     line: method.createLine(false),
                     circle: {
                         logo: method.createCircleLogo(),
-                        line: method.createCircleLine(),
-                        number: method.createCircleNumber()
+                        line: method.createCircleShape(param.main.circle.line),
+                        number: method.createCircleNumber(),
+                        shape: method.createCircleShape(param.main.circle.shape)
                     }
                 }
             },
@@ -145,12 +146,14 @@ new Vue({
         /* main circle */
         openCircle(){
             this.openCircleLogo()
-            this.openCircleLine()
+            this.openCircleShape(this.arr.main.circle.line)
             this.openCircleNumber()
+            this.openCircleShape(this.arr.main.circle.shape)
         },
         resizeCircle(){
-            this.resizeCircleLine()
+            this.resizeCircleShape(this.arr.main.circle.line, param.main.circle.line)
             this.resizeCircleNumber()
+            this.resizeCircleShape(this.arr.main.circle.shape, param.main.circle.shape)
         },
         /* main circle logo */
         openCircleLogo(){
@@ -162,19 +165,6 @@ new Vue({
             let e = this.arr.main.circle.logo[2]
             e.param.rot = (e.param.rot + 5) % 360
             e.style.transform = `rotate(${e.param.rot}deg)`
-        },
-        /* main circle line */
-        resizeCircleLine(){
-            let dist = param.util.height * ((param.main.circle.line.dist + param.main.circle.line.height) / 1080)
-            this.arr.main.circle.line.forEach((e, i) => {
-                let deg = i * 9 - 90, x = Math.cos(deg * param.util.radian) * dist, y = Math.sin(deg * param.util.radian) * dist
-                e.style.transform = `translate(${x}px, ${y}px) rotate(${90 + deg}deg)`
-            })
-        },
-        openCircleLine(){
-            this.arr.main.circle.line.forEach((e, i) => {
-                e.style.opacity = '1'
-            })
         },
         /* main circle number */
         resizeCircleNumber(){
@@ -194,6 +184,19 @@ new Vue({
             let offset = this.arr.main.circle.logo[this.arr.main.circle.logo.length - 1].param.delay / 1000
             this.arr.main.circle.number.forEach((e, i) => {
                 e.style.transition = `opacity 0.3s ${offset + param.main.circle.number.step}s`
+                e.style.opacity = '1'
+            })
+        },
+        /* main circle line & main circle shape */
+        resizeCircleShape(arr, p){
+            let dist = param.util.height * ((p.dist + p.height) / 1080)
+            arr.forEach((e, i) => {
+                let deg = i * 9 - 90, x = Math.cos(deg * param.util.radian) * dist, y = Math.sin(deg * param.util.radian) * dist
+                e.style.transform = `translate(${x}px, ${y}px) rotate(${90 + deg}deg)`
+            })
+        },
+        openCircleShape(arr){
+            arr.forEach((e, i) => {
                 e.style.opacity = '1'
             })
         },
