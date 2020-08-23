@@ -6,5 +6,20 @@ const move = {
     },
     onCompleteLineOutlineTween(){
         TWEEN.removeAll()
+    },
+    moveLine(group, pr, time){
+        group.forEach((c, i) => {
+            c.geometry.vertices.forEach(e => {
+                let noise = param.util.simplex.noise2D(e.x / (pr.smooth + i * 5), time * (pr.fre + i * 0.0001))
+                e.y = noise * pr.boost
+            })
+            c.geometry.verticesNeedUpdate = true
+        })
+    },
+    onUpdateThreeLineOpacityTween(e, start){
+        e.material.opacity = start.opacity
+    },
+    onCompleteThreeLineOpacityTween(){
+        TWEEN.removeAll()
     }
 }

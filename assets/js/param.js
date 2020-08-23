@@ -2,7 +2,8 @@ const param = {
     util: {
         width: window.innerWidth,
         height: window.innerHeight,
-        radian: Math.PI / 180
+        radian: Math.PI / 180,
+        simplex: new SimplexNoise()
     },
     opening: {
         arr: 'ARKNIGHTS'.split(''),
@@ -80,6 +81,28 @@ const tweens = {
         outline: {
             dark: [0, 0.3, 0.6, 0.3, 0.1],
             light: [0, 0.3, 0.6, 0.3, 0.3]
+        }
+    },
+    flow: {
+        time: 600
+    }
+}
+
+const three = {
+    line: {
+        right: {
+            len: 3,
+            seg: 128,
+            size: 45,
+            fre: 0.0004,
+            boost: 0.75,
+            smooth: 5,
+            step: {
+                time: 0.0001,
+                pos: 5,
+                opacity: 0.3
+            }
+            /* dist: 0 */ // 21.5 / 2 + 1.2
         }
     }
 }

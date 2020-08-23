@@ -3,15 +3,19 @@
     <head>
         <meta name="author" content="Bemuse">
         <meta name="description" content="Arknights wallpaper for WE">
-        <meta name="keywords" content="html, css, js, three.js, vue.js, tween.js">
+        <meta name="keywords" content="html, css, js, three.js, vue.js, tween.js, SimplexNoise">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="assets/js/vue.min.js"></script>
+        <script src="assets/js/three.min.r118.js"></script>
         <script src="assets/js/tween.umd.js"></script>
+        <script src="assets/js/simplex-noise.2.3.0.min.js"></script>
         <script src="assets/js/param.js"></script>
         <script src="assets/js/source.js"></script>
         <script src="assets/js/util.js"></script>
         <script src="assets/js/main.method.js"></script>
+        <script src="assets/js/object.js"></script>
         <script src="assets/js/move.js"></script>
+        <script src="assets/js/transform.js"></script>
         <script src="assets/js/tween.js"></script>
         <link href="assets/css/main.css" rel="stylesheet" type="text/css">
     </head>
@@ -99,6 +103,9 @@
                             :style="a.style"
                         ></div>
                     </transition-group>
+                </div>
+                <div id="main-canvas-wrap">
+                    <canvas id="canvas"></canvas>
                 </div>
             </div>
         </div>

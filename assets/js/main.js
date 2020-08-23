@@ -47,6 +47,12 @@ new Vue({
             util: {
                 width: window.innerWidth,
                 height: window.innerHeight
+            },
+            three: {
+                renderer: null,
+                scene: null,
+                camera: null,
+                group: null
             }
         }
     },
@@ -81,6 +87,7 @@ new Vue({
     methods: {
         init(){
             this.pickText()
+            this.threeInit()
             this.animate()
 
             window.addEventListener('resize', this.onWindowResize, false)
@@ -131,6 +138,7 @@ new Vue({
         /* tween */
         createTweens(){
             tween.createLineTween(this.arr.main.back.line, tweens, this.delay.main)
+            tween.createThreeLineTween(this.three.group.line.right.children, tweens, this.arr.main.circle.logo.length * param.main.circle.logo.delay.step + param.main.circle.logo.delay.offset)
         },
 
 
@@ -232,6 +240,39 @@ new Vue({
 
 
 
+        /* main canvas */
+        threeInit(){
+            let canvas = document.getElementById('canvas')
+            
+            object.init(canvas, this.three)
+            this.createObjects()
+            this.transformObject()
+        },
+        threeRender(){
+            this.moveObjects()
+
+            this.three.camera.lookAt(this.three.scene.position)
+            this.three.renderer.render(this.three.scene, this.three.camera)
+        },
+        threeResize(){
+            this.three.camera.aspect = this.util.width / this.util.height
+            this.three.camera.updateProjectionMatrix()
+
+            this.three.renderer.setSize(this.util.width, this.util.height)
+        },
+        createObjects(){
+            object.createLine(this.three, this.three.group.line.right, three.line.right)
+        },
+        moveObjects(){
+            let time = window.performance.now()
+            move.moveLine(this.three.group.line.right.children, three.line.right, time)
+        },
+        transformObject(){
+        },
+
+
+
+
         onWindowResize(){
             this.util.width = window.innerWidth
             this.util.height = window.innerHeight
@@ -240,6 +281,7 @@ new Vue({
 
             this.resizeLine()
             this.resizeCircle()
+            this.threeResize()
         },
         currentTime(){
             let date = new Date()
@@ -255,6 +297,7 @@ new Vue({
         render(){
             this.currentTime()
             if(this.play.opening) this.changeText()
+            this.threeRender()
             TWEEN.update()
         },
         animate(){
