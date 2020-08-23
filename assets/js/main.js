@@ -17,7 +17,8 @@ new Vue({
                         line: method.createCircleShape(param.main.circle.line),
                         number: method.createCircleNumber(),
                         shape: method.createCircleShape(param.main.circle.shape)
-                    }
+                    },
+                    arrow: method.createArrow()
                 }
             },
             style: {
@@ -121,6 +122,7 @@ new Vue({
             this.createTweens()
             this.openBack()
             this.openCircle()
+            this.openArrow()
         },
 
 
@@ -214,6 +216,16 @@ new Vue({
         openCircleShape(arr){
             arr.forEach((e, i) => {
                 e.style.opacity = '1'
+            })
+        },
+
+
+
+
+        /* main arrow */
+        openArrow(){
+            this.arr.main.arrow.forEach((e, i) => {
+                setTimeout(() => {e.show = true}, param.main.arrow.offset + param.main.arrow.step * i)
             })
         },
 

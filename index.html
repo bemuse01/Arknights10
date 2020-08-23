@@ -89,6 +89,17 @@
                         </div>
                     </div>
                 </div>
+                <div id="main-arrow-wrap">
+                    <transition-group name="circle-logo-transition" tag="div" id="arrow">
+                        <div
+                            class="arrow-element"
+                            v-for="a in arr.main.arrow"
+                            :key="a.id"
+                            v-show="a.show"
+                            :style="a.style"
+                        ></div>
+                    </transition-group>
+                </div>
             </div>
         </div>
         <script src="assets/js/main.js"></script>

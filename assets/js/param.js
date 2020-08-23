@@ -63,6 +63,10 @@ const param = {
                     step: 0.015
                 }
             }
+        },
+        arrow: {
+            offset: 4000,
+            step: 300
         }
     }
 }
