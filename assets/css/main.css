@@ -116,8 +116,9 @@ div#main{
 
 
 
-/* main line */
-div#main-line{
+/* main back */
+/* back line */
+div#back-line{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -125,14 +126,15 @@ div#main-line{
     width: 110vw;
     height: 110vh;
 }
-div.main-line-square{
+div.back-line-element{
     position: relative;
     float: left;
     width: 10vh;
     height: 10vh;
     /* outline: 1px solid rgba(0, 252, 252, 0.1); */
 }
-div#main-point div{
+/* back point */
+div#back-point div{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -142,6 +144,21 @@ div#main-point div{
     height: 100vh;
     transition: opacity 0.5s;
 }
+/* back ellipse */
+div.back-ellipse-element{
+    position: absolute;
+    width: calc(100vh * 140 / 1080);
+    height: calc(100vh * 140 / 1080);
+    transform: translate(-50%, -50%);
+}
+div.back-ellipse-element > div{
+    position: absolute;
+    border-radius: 50%;
+    border: 12px solid rgba(0, 252, 252, 0.12);
+    width: calc(100vh * 120 / 1080);
+    height: calc(100vh * 120 / 1080);
+}
+
 
 
 

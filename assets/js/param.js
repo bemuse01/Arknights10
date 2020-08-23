@@ -14,9 +14,18 @@ const param = {
         }
     },
     main: {
-        line: {
-            size: 1.1,
-            square: 0.1
+        back: {
+            line: {
+                size: 1.1,
+                square: 0.1
+            },
+            ellipse: {
+                len: 20,
+                size: 70,
+                dist: 0,
+                step: 0.03,
+                scale: 0.25
+            }
         },
         circle: {
             logo: {

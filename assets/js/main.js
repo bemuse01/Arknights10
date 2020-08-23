@@ -8,7 +8,10 @@ new Vue({
                     index: util.createRandomIndex(param.opening),
                 },
                 main: {
-                    line: method.createLine(false),
+                    back: {
+                        line: method.createLine(false),
+                        ellipse: method.createEllipse()
+                    },
                     circle: {
                         logo: method.createCircleLogo(),
                         line: method.createCircleShape(param.main.circle.line),
@@ -36,7 +39,8 @@ new Vue({
                 opening: 1500,
                 main: {
                     line: 2000,
-                    point: 3000
+                    point: 3000,
+                    ellipse: 3.5
                 }
             },
             util: {
@@ -115,7 +119,7 @@ new Vue({
             this.stopChangingText()
             this.closeText()
             this.createTweens()
-            this.openPoint()
+            this.openBack()
             this.openCircle()
         },
 
@@ -124,20 +128,32 @@ new Vue({
 
         /* tween */
         createTweens(){
-            tween.createLineTween(this.arr.main.line, tweens, this.delay.main)
+            tween.createLineTween(this.arr.main.back.line, tweens, this.delay.main)
         },
 
 
 
 
-        /* main line */
+        /* main back */
+        openBack(){
+            this.openPoint()
+            this.openEllipse()
+        },
         resizeLine(){
-            let resized = this.arr.main.line[this.arr.main.line.length - 1].param.played
-            this.arr.main.line.length = 0
-            this.arr.main.line = method.createLine(resized)
+            let resized = this.arr.main.back.line[this.arr.main.back.line.length - 1].param.played
+            this.arr.main.back.line.length = 0
+            this.arr.main.back.line = method.createLine(resized)
         },
         openPoint(){
             setTimeout(() => {this.style.point.opacity = '0.6'}, this.delay.main.point)
+        },
+        openEllipse(){
+            let step = param.main.back.ellipse.step
+            this.arr.main.back.ellipse.forEach((e, i) => {
+                e.style.child.transition = `opacity 0.3s ${this.delay.main.ellipse + step * i}s, transform 0.3s ${this.delay.main.ellipse + step * i}s`
+                e.style.child.opacity = '1'
+                e.style.child.transform = `scale(${e.param.scale})`
+            })
         },
 
 

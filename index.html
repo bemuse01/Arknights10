@@ -28,17 +28,26 @@
                 </div>
             </transition>
             <div id="main">
-                <div id="main-line-wrap">
-                    <div id="main-line">
+                <div id="main-back-wrap">
+                    <div id="back-line">
                         <div
-                            class="main-line-square"
-                            v-for="l in arr.main.line"
+                            class="back-line-element"
+                            v-for="l in arr.main.back.line"
                             :key="l.id"
                             :style="l.style"
                         ></div>
                     </div>
-                    <div id="main-point">
+                    <div id="back-point">
                         <div :style="style.point"></div>
+                    </div>
+                    <div id="back-ellipse">
+                        <div
+                            class="back-ellipse-element"
+                            v-for="e in arr.main.back.ellipse"
+                            :key="e.id"
+                            :style="e.style.parent"
+                        ><div :style="e.style.child"></div>
+                        </div>
                     </div>
                 </div>
                 <div id="main-circle-wrap">

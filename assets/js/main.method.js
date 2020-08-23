@@ -17,8 +17,8 @@ const method = {
         return arr
     },
     createLine(resized){
-        let width =  param.util.width * param.main.line.size, height = param.util.height * param.main.line.size,
-            size = param.util.height * param.main.line.square
+        let width =  param.util.width * param.main.back.line.size, height = param.util.height * param.main.back.line.size,
+            size = param.util.height * param.main.back.line.square
             wLen = Math.round(width / size), hLen = Math.round(height / size)
             arr = [], len = wLen * hLen
 
@@ -119,4 +119,32 @@ const method = {
         }
         return arr
     },
+    createEllipse(){
+        let arr = []
+
+        for(let i = 0; i < param.main.back.ellipse.len; i++){
+            let top = Math.random() * (100 - param.main.back.ellipse.dist * 2) + param.main.back.ellipse.dist, 
+                left = Math.random() * (100 - param.main.back.ellipse.dist * 2) + param.main.back.ellipse.dist,
+                scale = Math.random() * (1 - param.main.back.ellipse.scale) + param.main.back.ellipse.scale
+                
+            arr[i] = {
+                id: i,
+                param: {
+                    scale: scale
+                },
+                style: {
+                    parent: {
+                        top: `${top}%`,
+                        left: `${left}%`
+                    },
+                    child: {
+                        opacity: '0',
+                        transition: 'none',
+                        transform: `scale(${scale - 0.1})`,
+                    }
+                }
+            }
+        }
+        return arr
+    }
 }
