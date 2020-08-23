@@ -107,6 +107,17 @@
                 <div id="main-canvas-wrap">
                     <canvas id="canvas"></canvas>
                 </div>
+                <div id="main-bar-wrap">
+                    <div id="bar-top" :style="style.bar">
+                        <div
+                            class="bar-top-element"
+                            v-for="b in arr.main.bar"
+                            :key="b.id"
+                            :style="b.style.parent"
+                        ><div :style="b.style.child"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <script src="assets/js/main.js"></script>

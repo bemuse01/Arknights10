@@ -18,11 +18,13 @@ new Vue({
                         number: method.createCircleNumber(),
                         shape: method.createCircleShape(param.main.circle.shape)
                     },
-                    arrow: method.createArrow()
+                    arrow: method.createArrow(),
+                    bar: method.createBar(param.main.bar)
                 }
             },
             style: {
-                point: {opacity: '0'}
+                point: {opacity: '0'},
+                bar: {opacity: '0'}
             },
             show: {
                 opening: true
@@ -130,6 +132,7 @@ new Vue({
             this.openBack()
             this.openCircle()
             this.openArrow()
+            this.openBar()
         },
 
 
@@ -137,8 +140,11 @@ new Vue({
 
         /* tween */
         createTweens(){
+            let delay = this.arr.main.circle.logo.length * param.main.circle.logo.delay.step + param.main.circle.logo.delay.offset
+
             tween.createLineTween(this.arr.main.back.line, tweens, this.delay.main)
-            tween.createThreeLineTween(this.three.group.line.right.children, tweens, this.arr.main.circle.logo.length * param.main.circle.logo.delay.step + param.main.circle.logo.delay.offset)
+            tween.createThreeLineTween(this.three.group.line.right.children, tweens, delay)
+            tween.createBarTween(this.arr.main.bar, tweens)
         },
 
 
@@ -268,6 +274,15 @@ new Vue({
             move.moveLine(this.three.group.line.right.children, three.line.right, time)
         },
         transformObject(){
+        },
+
+
+
+        /* main bar */
+        openBar(){
+            let delay = this.arr.main.circle.logo.length * param.main.circle.logo.delay.step + param.main.circle.logo.delay.offset
+            
+            setTimeout(() => {this.style.bar.opacity = '1'}, delay)
         },
 
 

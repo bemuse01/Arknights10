@@ -169,5 +169,35 @@ const method = {
             })
         })
         return arr
+    },
+    createBar(param){
+        let arr = []
+
+        for(let i = 0; i < param.len; i++){
+            let width = Math.random() * param.width.max + param.width.min, height = Math.random() * param.height.max + param.height.min,
+                top = Math.random() * 100, color = param.color[Math.floor(Math.random() * param.color.length)], opacity = Math.random() * 0.5 + 0.5
+            arr[i] = {
+                id: i,
+                param: {
+                    x: 600 + width / 2,
+                    opacity: opacity
+                },
+                style: {
+                    parent: {
+                        top: `${top}%`,
+                        width: `calc(100vh * ${width} / 1080)`,
+                        height: `calc(100vh * ${height} / 1080)`
+                    },
+                    child: {
+                        width: `calc(100vh * ${width} / 1080)`,
+                        height: `calc(100vh * ${height} / 1080)`,
+                        background: `rgb(${color})`,
+                        opacity: `0`,
+                        transform: `translate(calc(100vh * (600 + ${width / 2}) / -1080), 0px)`
+                    }
+                }
+            }
+        }
+        return arr
     }
 }

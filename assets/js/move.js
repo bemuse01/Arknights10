@@ -21,5 +21,9 @@ const move = {
     },
     onCompleteThreeLineOpacityTween(){
         TWEEN.removeAll()
+    },
+    onUpdateBarTween(e, start){
+        e.style.child.transform = `translate(calc(100vh * ${start.translate} / 1080), 0px)`
+        e.style.child.opacity = `${start.opacity}`
     }
 }

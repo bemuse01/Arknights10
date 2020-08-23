@@ -68,6 +68,18 @@ const param = {
         arrow: {
             offset: 4000,
             step: 300
+        },
+        bar: {
+            len: 30,
+            width: {
+                min: 50,
+                max: 200
+            },
+            height: {
+                min: 2,
+                max: 1
+            },
+            color: ['0, 252, 252', '255, 255, 255', '255, 130, 130']
         }
     }
 }
@@ -85,6 +97,12 @@ const tweens = {
     },
     flow: {
         time: 600
+    },
+    bar: {
+        time: {
+            min: 1500,
+            max: 1500
+        }
     }
 }
 

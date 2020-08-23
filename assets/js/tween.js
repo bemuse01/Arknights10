@@ -29,8 +29,27 @@ const tween = {
             let tw = new TWEEN.Tween(start)
                 .to(end, tweens.flow.time)
                 .onUpdate(() => {move.onUpdateThreeLineOpacityTween(e, start)})
-                .onComplete(() => {if(i === group.length - 1) move.onCompleteThreeLineOpacityTween()})
+                // .onComplete(() => {if(i === group.length - 1) move.onCompleteThreeLineOpacityTween()})
                 .delay(delay)
+                .start()
+        })
+    },
+    createBarTween(arr, tweens){
+        this.addBarTranslateTween(arr, tweens)
+    },
+    addBarTranslateTween(arr, tweens){
+        arr.forEach(e => {
+            let start = {translate: -e.param.x, opacity: 0}, 
+            end = {
+                translate: e.param.x,
+                opacity: [0, e.param.opacity, e.param.opacity / 2, e.param.opacity / 4, 0]
+            }, 
+            time = Math.floor(Math.random() * tweens.bar.time.max + tweens.bar.time.min)
+
+            let tw = new TWEEN.Tween(start)
+                .to(end, time)
+                .onUpdate(() => {move.onUpdateBarTween(e, start)})
+                .repeat(Infinity)
                 .start()
         })
     }

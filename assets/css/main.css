@@ -251,3 +251,26 @@ canvas#canvas{
     top: 0;
     left: 0;
 }
+
+
+
+
+/* main bar */
+div#bar-top{
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100vh * 1200 / 1080);
+    height: calc(100vh * 120 / 1080);
+    transition: opacity 0.3s;
+    /* overflow: hidden; */
+}
+div.bar-top-element{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+div.bar-top-element > div{
+    position: absolute;
+}
