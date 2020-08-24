@@ -14,12 +14,12 @@
     font-family: NotoMonoRegular;
 }
 @font-face{
-    src: url('../font/Inconsolata-Light.ttf');
-    font-family: InconsolataLight;
-}
-@font-face{
     src: url('../font/tama_mini01.ttf');
     font-family: tamaMini;
+}
+@font-face{
+    src: url('../font/SharpCardinal.ttf');
+    font-family: sharpCardinal;
 }
 
 
@@ -65,6 +65,24 @@
     opacity: 0;
 }
 .circle-logo-transition-leave-to{
+    opacity: 0;
+}
+/* clock transition */
+.clock-transition-enter-active{
+    animation: blink-open 0.08s 0.04s 3 forwards;
+    transition: all 0.25s;
+}
+.clock-transition-leave-active{
+    transition: all 0.25s;
+}
+.clock-transition-enter{
+    transform-origin: center;
+    transform: translate(-75%, 0px) scale(1);
+    opacity: 0;
+}
+.clock-transition-leave-to{
+    transform-origin: center;
+    transform: translate(50%, 0px) scale(0.75);
     opacity: 0;
 }
 
@@ -258,19 +276,65 @@ canvas#canvas{
 /* main bar */
 div#bar-top{
     position: absolute;
-    top: 38%;
+    top: 39.5%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: calc(100vh * 1200 / 1080);
-    height: calc(100vh * 120 / 1080);
+    height: calc(100vh * 80 / 1080);
     transition: opacity 0.3s;
-    /* overflow: hidden; */
 }
-div.bar-top-element{
+div#bar-bottom{
+    position: absolute;
+    top: 60.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100vh * 1200 / 1080);
+    height: calc(100vh * 80 / 1080);
+    transition: opacity 0.3s;
+}
+div.bar-element{
     position: absolute;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-div.bar-top-element > div{
+div.bar-element > div{
     position: absolute;
+}
+
+
+
+
+/* main clock */
+div#main-clock-wrap{
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(calc(100vh * 800 / -1080), calc(100vh * 280 / 1080));
+    width: calc(100vh * (75 * 3 + 45 * 2) / 1080);
+    height: auto;
+    font-size: 8vh; /* 75 */
+    font-family: sharpCardinal;
+    transition: opacity 0.3s;
+}
+div.clock-element{
+    position: absolute;
+    width: calc(100vh * 75 / 1080);
+    height: auto;
+    top: 0;
+}
+div.clock-element > div{
+    position: absolute;
+    width: calc(100vh * 75 / 1080);
+    height: auto;
+    text-align: center;
+}
+div.clock-hour{
+    left: 0;
+}
+div.clock-min{
+    left: 50%;
+    transform: translate(-50%, 0px);
+}
+div.clock-sec{
+    right: 0;
 }

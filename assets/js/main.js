@@ -19,12 +19,17 @@ new Vue({
                         shape: method.createCircleShape(param.main.circle.shape)
                     },
                     arrow: method.createArrow(),
-                    bar: method.createBar(param.main.bar)
+                    bar: {
+                        top: method.createBar(param.main.bar),
+                        bottom: method.createBar(param.main.bar)
+                    },
+                    clock: method.createClock()
                 }
             },
             style: {
                 point: {opacity: '0'},
-                bar: {opacity: '0'}
+                bar: {opacity: '0'},
+                clock: {opacity: '0'}
             },
             show: {
                 opening: true
@@ -43,7 +48,8 @@ new Vue({
                 main: {
                     line: 2000,
                     point: 3000,
-                    ellipse: 3.5
+                    ellipse: 3.5,
+                    clock: 500
                 }
             },
             util: {
@@ -74,13 +80,26 @@ new Vue({
         computedClock(){
             return `${this.computedHour}:${this.computedMin}:${this.computedSec}.${(this.computedMs + '')[0]}`
         },
+        watchHour(){
+            return this.time.hour
+        },
+        watchMin(){
+            return this.time.min
+        },
         watchSecond(){
             return this.time.sec
         }
     },
     watch: {
+        watchHour(){
+            this.slideTime(this.arr.main.clock[0].arr, this.time.hour)
+        },
+        watchMin(){
+            this.slideTime(this.arr.main.clock[1].arr, this.time.min)
+        },
         watchSecond(){
             this.rotateCircleLogo()
+            this.slideTime(this.arr.main.clock[2].arr, this.time.sec)
         }
     },
     mounted(){
@@ -90,6 +109,7 @@ new Vue({
         init(){
             this.pickText()
             this.threeInit()
+            this.initTime()
             this.animate()
 
             window.addEventListener('resize', this.onWindowResize, false)
@@ -133,6 +153,7 @@ new Vue({
             this.openCircle()
             this.openArrow()
             this.openBar()
+            this.openClock()
         },
 
 
@@ -144,7 +165,8 @@ new Vue({
 
             tween.createLineTween(this.arr.main.back.line, tweens, this.delay.main)
             tween.createThreeLineTween(this.three.group.line.right.children, tweens, delay)
-            tween.createBarTween(this.arr.main.bar, tweens)
+            tween.createBarTween(this.arr.main.bar.top, tweens)
+            tween.createBarTween(this.arr.main.bar.bottom, tweens)
         },
 
 
@@ -285,6 +307,27 @@ new Vue({
             setTimeout(() => {this.style.bar.opacity = '1'}, delay)
         },
 
+
+
+
+        /* main clock */
+        openClock(){
+            let delay = this.arr.main.circle.logo.length * param.main.circle.logo.delay.step + param.main.circle.logo.delay.offset + this.delay.main.clock
+
+            setTimeout(() => {this.style.clock.opacity = '1'}, delay)
+        },
+        slideTime(arr, time){
+            let item = arr.shift()
+            item.show = false
+            arr.push(item)
+            arr[0].text = time
+            arr[0].show = true
+        },
+        initTime(){
+            this.arr.main.clock.forEach((e, i) => {
+                e.arr[0].text = i === 0 ? this.time.hour : i === 1 ? this.time.min : this.time.sec
+            })
+        },
 
 
 

@@ -20,6 +20,7 @@
         <link href="assets/css/main.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+        <!-- <b><em><u><s>e</s></u></em></b> -->
         <div id="wrap">
             <transition name="text-transition">
                 <div id="opening" v-show="show.opening">
@@ -110,13 +111,36 @@
                 <div id="main-bar-wrap">
                     <div id="bar-top" :style="style.bar">
                         <div
-                            class="bar-top-element"
-                            v-for="b in arr.main.bar"
+                            class="bar-element"
+                            v-for="b in arr.main.bar.top"
                             :key="b.id"
                             :style="b.style.parent"
                         ><div :style="b.style.child"></div>
                         </div>
                     </div>
+                    <div id="bar-bottom" :style="style.bar">
+                        <div
+                            class="bar-element"
+                            v-for="b in arr.main.bar.bottom"
+                            :key="b.id"
+                            :style="b.style.parent"
+                        ><div :style="b.style.child"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="main-clock-wrap" :style="style.clock">
+                    <transition-group name="clock-transition" tag="div"
+                        v-for="c in arr.main.clock"
+                        :class="c.classes"
+                        :key="c.id"
+                    >
+                        <div
+                            v-for="a in c.arr"
+                            :key="a.id"
+                            v-show="a.show"
+                        ><span>{{a.text}}</span>
+                        </div>
+                    </transition-group>
                 </div>
             </div>
         </div>

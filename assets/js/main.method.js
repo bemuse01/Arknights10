@@ -175,12 +175,11 @@ const method = {
 
         for(let i = 0; i < param.len; i++){
             let width = Math.random() * param.width.max + param.width.min, height = Math.random() * param.height.max + param.height.min,
-                top = Math.random() * 100, color = param.color[Math.floor(Math.random() * param.color.length)], opacity = Math.random() * 0.5 + 0.5
+                top = Math.random() * 100, color = param.color[Math.floor(Math.random() * param.color.length)]
             arr[i] = {
                 id: i,
                 param: {
                     x: 600 + width / 2,
-                    opacity: opacity
                 },
                 style: {
                     parent: {
@@ -198,6 +197,21 @@ const method = {
                 }
             }
         }
+        return arr
+    },
+    createClock(){
+        let arr = [], src = ['clock-element clock-hour', 'clock-element clock-min', 'clock-element clock-sec']
+        
+        src.forEach(e => {
+            arr.push({
+                id: arr.length,
+                classes: e,
+                arr: [
+                    {id: 0, show: true, text: '59'},
+                    {id: 1, show: false, text: ''}
+                ]
+            })
+        })
         return arr
     }
 }

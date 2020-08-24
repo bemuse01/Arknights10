@@ -39,11 +39,7 @@ const tween = {
     },
     addBarTranslateTween(arr, tweens){
         arr.forEach(e => {
-            let start = {translate: -e.param.x, opacity: 0}, 
-            end = {
-                translate: e.param.x,
-                opacity: [0, e.param.opacity, e.param.opacity / 2, e.param.opacity / 4, 0]
-            }, 
+            let start = {translate: -e.param.x, opacity: 0}, end = {translate: e.param.x, opacity: tweens.bar.opacity}, 
             time = Math.floor(Math.random() * tweens.bar.time.max + tweens.bar.time.min)
 
             let tw = new TWEEN.Tween(start)

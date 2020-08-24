@@ -70,10 +70,10 @@ const param = {
             step: 300
         },
         bar: {
-            len: 30,
+            len: 12,
             width: {
                 min: 50,
-                max: 200
+                max: 100
             },
             height: {
                 min: 2,
@@ -100,9 +100,10 @@ const tweens = {
     },
     bar: {
         time: {
-            min: 1500,
-            max: 1500
-        }
+            min: 1800,
+            max: 1800
+        },
+        opacity: [0, 1, 1, 0.5, 0.25, 0]
     }
 }
 
