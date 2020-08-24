@@ -25,7 +25,7 @@ const param = {
                 size: 70,
                 dist: 0,
                 step: 0.03,
-                scale: 0.25
+                scale: 0.2
             }
         },
         circle: {
@@ -80,6 +80,17 @@ const param = {
                 max: 1
             },
             color: ['0, 252, 252', '255, 255, 255', '255, 130, 130']
+        },
+        command: {
+            len: 5,
+            deg: 6,
+            offset: 25,
+            dist: 412,
+            num: {
+                min: 5,
+                max: 3
+            },
+            chance: 0.95
         }
     }
 }
@@ -124,4 +135,24 @@ const three = {
             /* dist: 0 */ // 21.5 / 2 + 1.2
         }
     }
+}
+
+const names = {
+    alpha: 'abcdefghijklmnopqrstuvwxy'.split(''),
+    logo: ['Rhodes', 'Babel', 'Penguin', 'Lungmen', 'Ursus', 'Black', 'Kjerag', 'Reunion', 'Victoria', 'Rhine', 'Raythean', 'Billiton', 'Laterano', 'Kazimierz'],
+    paths: ['program files', 'home', 'users', 'documents', 'untitled', 'local', 'host', 'lib', 'temp', 'tasks', 'system', 'windows'],
+    character: ['doctor', 'closure', 'kaltsit', 'chen', 'amiya', 'texas', 'skadi', 'blaze', 'hoshiguma', 'saria', 'exusiai', 'blue', 'w', 'mostima', 'eyjafjalla', 'ceobe', 'shining', 'ptilopsis', 'nightingale', 'magallan', 'sora', 'emperor'],
+    ex: ['dll', 'txt', 'docx', 'log', 'bin', 'ini', 'xml', 'json']
+}
+
+const word = {
+    start: ['ls', 'cp', 'mkdir', 'rmdir', 'find', 'who', 'pwd', 'history'],
+    ls: [...names.alpha.map(x => ` -${x}`), ...names.logo.map(x => ` /${x}`), ...names.paths.map(x => ` /${x}`)],
+    cp: [...names.alpha.map(x => ` -${x}`), ...names.character.map(x => ` ${x}.${names.ex[Math.floor(Math.random() * names.ex.length)]}`), ...names.paths.map(x => ` /${x}`)],
+    mkdir: [...names.alpha.map(x => ` -${x}`), ...names.paths.map(x => ` /${x}`)],
+    rmdir: [...names.alpha.map(x => ` -${x}`), ...names.paths.map(x => ` /${x}`)],
+    find: [...names.alpha.map(x => ` -${x}`), ...names.character.map(x => ` ${x}.${names.ex[Math.floor(Math.random() * names.ex.length)]}`)],
+    who: [...names.alpha.map(x => ` -${x}`), ...names.character.map(x => ` ${x}`)],
+    pwd: [...names.alpha.map(x => ` -${x}`)],
+    history: [...names.alpha.map(x => ` -${x}`)]
 }

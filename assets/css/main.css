@@ -129,6 +129,7 @@ div#main{
     left: 0;
     width: 100vw;
     height: 100vh;
+    transform: translate(0px, -40px);
 }
 
 
@@ -309,10 +310,10 @@ div#main-clock-wrap{
     position: absolute;
     bottom: 50%;
     left: 50%;
-    transform: translate(calc(100vh * 800 / -1080), calc(100vh * 280 / 1080));
-    width: calc(100vh * (75 * 3 + 45 * 2) / 1080);
+    transform: translate(calc(100vh * 660 / -1080), calc(100vh * 220 / 1080));
+    width: calc(100vh * (75 * 3 + 30 * 2) / 1080);
     height: auto;
-    font-size: 8vh; /* 75 */
+    font-size: 6vh; /* 75 */
     font-family: sharpCardinal;
     transition: opacity 0.3s;
 }
@@ -337,4 +338,51 @@ div.clock-min{
 }
 div.clock-sec{
     right: 0;
+}
+
+
+
+
+/* main text */
+div#text-element{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(100vh * 720 / -1080), calc(100vh * 260 / -1080));
+    width: calc(100vh * 400 / 1080);
+    height: calc(100vh * 100 / 1080);
+    font-family: sharpCardinal;
+    font-size: 5vh;
+}
+div#text-element span{
+    position: absolute;
+}
+div#text-element span:last-child{
+    top: 65%;
+    transform: translate(0px, -50%);
+    font-family: tamaMini;
+    font-size: 2.5vh;
+    letter-spacing: 1px;
+    color: white;
+    opacity: 0.75;
+}
+
+
+
+
+/* main command */
+div.command-element{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5vh;
+    font-family: tamaMini;
+}
+div.command-element > div{
+    position: absolute;
+    width: calc(100vh * 500 / 1080);
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
 }

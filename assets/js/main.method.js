@@ -213,5 +213,39 @@ const method = {
             })
         })
         return arr
+    },
+    createText(){
+        let arr = [], src = ['SYSTEM/PENGUIN', 'PENGUIN LOGISTICS SCLI.V.20200825.0006']
+        src.forEach(e => {
+            arr.push({
+                id: arr.length,
+                param: {
+                    text: e.split('').reverse()
+                },
+                text: ''
+            })
+        })
+        return arr
+    },
+    createCommand(direction = 1){
+        let arr = []
+        
+        for(let i = 0; i < param.main.command.len; i++){
+            let dist = param.util.height * (param.main.command.dist / 1080), deg = (param.main.command.offset + i * param.main.command.deg) * direction
+                x = Math.cos(deg * param.util.radian) * dist, y = Math.sin(deg * param.util.radian) * dist
+            
+            arr[i] = {
+                id: i,
+                text: '',
+                param: {
+                    text: util.createRandomCommand(),
+                    height: param.util.height
+                },
+                style: {
+                    transform: `translate(${x}px, ${y}px)`
+                }
+            }
+        }
+        return arr
     }
 }

@@ -23,7 +23,12 @@ new Vue({
                         top: method.createBar(param.main.bar),
                         bottom: method.createBar(param.main.bar)
                     },
-                    clock: method.createClock()
+                    clock: method.createClock(),
+                    text: method.createText(),
+                    command: {
+                        top: method.createCommand(-1),
+                        bottom: method.createCommand()
+                    }
                 }
             },
             style: {
@@ -41,7 +46,9 @@ new Vue({
                 hour: 0,
             },
             play: {
-                opening: true
+                opening: true,
+                text: false,
+                command: false
             },
             delay: {
                 opening: 1500,
@@ -49,7 +56,9 @@ new Vue({
                     line: 2000,
                     point: 3000,
                     ellipse: 3.5,
-                    clock: 500
+                    clock: 500,
+                    text: 500,
+                    command: 500
                 }
             },
             util: {
@@ -154,6 +163,8 @@ new Vue({
             this.openArrow()
             this.openBar()
             this.openClock()
+            this.openText()
+            this.openCommand()
         },
 
 
@@ -331,6 +342,72 @@ new Vue({
 
 
 
+
+        /* main text */
+        openText(){
+            let delay = this.arr.main.circle.logo.length * param.main.circle.logo.delay.step + param.main.circle.logo.delay.offset + this.delay.main.text
+            
+            setTimeout(() => {this.play.text = true}, delay)
+        },
+        writeText(){
+            this.arr.main.text.forEach((e, i) => {
+                let text = e.param.text.pop()
+                if(text === undefined && i === 1) {
+                    this.play.text = false
+                    return
+                }
+                else if(text === undefined) return
+                e.text += text
+            })
+        },
+
+
+
+
+        /* main command */
+        typeCommand(arr){
+            arr.forEach(e => {
+                let chance = Math.random()
+                if(chance > param.main.command.chance && e.param.text.length === 0) this.createSentence(e)
+                this.typeCharacter(e)
+            })
+        },
+        typeCharacter(e){
+            let temp = e.param.text.pop()
+            if(temp === undefined) return
+            e.text += temp
+        },
+        createSentence(e){
+            e.text = ''
+            // e.style.opacity = Math.random() * param.main.leftWriter.opacity + param.main.leftWriter.opacity
+            e.param.text = util.createRandomCommand()
+        },
+        changeOrder(arr){
+            let index = Math.floor(Math.random() * arr.length),
+                item = arr[index]
+
+            arr.splice(index, 1)
+
+            arr.unshift(item)
+        },
+        openCommand(){
+            let delay = this.arr.main.circle.logo.length * param.main.circle.logo.delay.step + param.main.circle.logo.delay.offset + this.delay.main.command
+
+            setTimeout(() => {this.play.command = true}, delay)
+        },
+        resizeCommand(arr, direction = 1){
+            let ratio = param.util.height / arr[0].param.height
+            arr.forEach((e, i) => {
+                let dist = param.util.height * (param.main.command.dist / 1080), deg = (param.main.command.offset + i * param.main.command.deg) * ratio * direction
+                x = Math.cos(deg * param.util.radian) * dist, y = Math.sin(deg * param.util.radian) * dist
+
+                e.style.transform = `translate(${x}px, ${y}px)`
+            })
+        },
+
+
+
+
         onWindowResize(){
             this.util.width = window.innerWidth
             this.util.height = window.innerHeight
@@ -340,6 +417,8 @@ new Vue({
             this.resizeLine()
             this.resizeCircle()
             this.threeResize()
+            this.resizeCommand(this.arr.main.command.bottom)
+            this.resizeCommand(this.arr.main.command.top, -1)
         },
         currentTime(){
             let date = new Date()
@@ -357,6 +436,11 @@ new Vue({
             if(this.play.opening) this.changeText()
             this.threeRender()
             TWEEN.update()
+            if(this.play.text) this.writeText()
+            if(this.play.command) {
+                this.typeCommand(this.arr.main.command.top)
+                this.typeCommand(this.arr.main.command.bottom)
+            }
         },
         animate(){
             this.render()

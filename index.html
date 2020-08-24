@@ -142,6 +142,33 @@
                         </div>
                     </transition-group>
                 </div>
+                <div id="main-text-wrap">
+                    <div id="text-element">
+                        <span
+                            v-for="t in arr.main.text"
+                            :key="t.id"
+                        >{{t.text}}
+                        </span>
+                    </div>
+                </div>
+                <div id="main-command-wrap">
+                    <div id="command-top">
+                        <div
+                            class="command-element"
+                            v-for="c in arr.main.command.top"
+                            :key="c.id"
+                        ><div :style="c.style"><span>{{c.text}}</span></div>
+                        </div>
+                    </div>
+                    <div id="command-bottom">
+                        <div
+                            class="command-element"
+                            v-for="c in arr.main.command.bottom"
+                            :key="c.id"
+                        ><div :style="c.style"><span>{{c.text}}</span></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <script src="assets/js/main.js"></script>
